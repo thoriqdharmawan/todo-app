@@ -1,3 +1,4 @@
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 interface Props {
@@ -8,11 +9,11 @@ export default (props: Props) => {
   const { children } = props
   return (
     <div>
-      <div>
+      <Box mb="49px">
         <Typography variant="h2" component="h2" fontWeight={700} fontSize={36}>
           Activity
         </Typography>
-      </div>
+      </Box>
 
       <div>
         {children}
