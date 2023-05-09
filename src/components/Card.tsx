@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -6,9 +8,22 @@ import IconButton from '@mui/material/IconButton';
 
 import DeleteIcon from '@/assets/delete-icon.svg'
 
-export default () => {
+interface Props {
+  onClick: () => void;
+  onDelete: () => void;
+}
+
+export default (props: Props) => {
+  const { onClick, onDelete } = props
+
+  const handleDelete = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    ev.stopPropagation();
+    onDelete()
+  }
+
   return (
     <Card
+      onClick={onClick}
       sx={(theme) => ({
         maxWidth: 235,
         height: 234,
@@ -30,7 +45,7 @@ export default () => {
         <Typography color="#888888" fontSize="12px">
           5 Oktober 2021
         </Typography>
-        <IconButton size="small" color="primary">
+        <IconButton onClick={handleDelete} size="medium" color="primary">
           <img src={DeleteIcon} alt="delete" />
         </IconButton>
       </CardActions>

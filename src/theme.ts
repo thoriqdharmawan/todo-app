@@ -21,12 +21,6 @@ declare module '@mui/material/styles' {
 }
 
 export const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#16ABF8',
-      contrastText: '#fff',
-    },
-  },
   breakpoints: {
     values: {
       xs: 0,
@@ -34,6 +28,33 @@ export const theme = createTheme({
       md: 1000,
       lg: 1200,
       xl: 1536,
+    },
+  },
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true
+      },
+      styleOverrides: {
+        root: {
+          borderRadius: '45px',
+          padding: '13.5px 29px',
+          fontSize: 18,
+        }
+      }
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: '12px',
+        },
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: '#16ABF8',
+      contrastText: '#fff',
     },
   },
   typography: {

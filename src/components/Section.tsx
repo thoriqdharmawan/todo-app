@@ -21,14 +21,16 @@ export default (props: Props) => {
           variant="contained"
           disableElevation
           startIcon={<img src={AddIcon} alt="add" />}
-          sx={{ borderRadius: "45px", fontSize: 18, fontWeight: 600, padding: '13.5px 29px' }}
+          sx={{ borderRadius: "45px", fontWeight: 600 }}
         >
-          Tambah</Button>
+          Tambah
+        </Button>
       </Box>
 
       <div>
         {children}
       </div>
+
     </section>
   )
 }
