@@ -2,7 +2,6 @@ import { useState } from "react"
 
 import ListItem from "@/components/ListItem"
 import Section from "@/components/Section"
-import Dialog from "@/components/Dialog";
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 
 enum Types {
@@ -64,12 +63,11 @@ export default () => {
         />
       ))}
 
-      <Dialog open={dialog.open && dialog.type === Types.DELETE}>
-        <DeleteConfirmation
-          onCancel={handleClose}
-          onDelete={handleClose}
-        />
-      </Dialog>
+      <DeleteConfirmation
+        open={dialog.open && dialog.type === Types.DELETE}
+        onCancel={handleClose}
+        onDelete={handleClose}
+      />
     </Section>
   )
 }

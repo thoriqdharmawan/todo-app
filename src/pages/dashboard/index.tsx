@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom"
 import Stack from "@mui/material/Stack"
 
 import Card from "@/components/Card"
-import Dialog from "@/components/Dialog"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 
@@ -59,12 +58,11 @@ export default () => {
         ))}
       </Stack>
 
-      <Dialog open={dialog.open}>
-        <DeleteConfirmation
-          onCancel={handleClose}
-          onDelete={handleClose}
-        />
-      </Dialog>
+      <DeleteConfirmation
+        open={dialog.open}
+        onCancel={handleClose}
+        onDelete={handleClose}
+      />
     </Section>
   )
 }
