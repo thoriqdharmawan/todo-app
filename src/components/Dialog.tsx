@@ -26,6 +26,7 @@ export default (props: Props) => {
       open={open}
       sx={{ borderRadius: 12 }}
       TransitionComponent={Transition}
+      maxWidth="lg"
     >
       {children}
     </Dialog>

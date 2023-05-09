@@ -5,11 +5,12 @@ import Typography from '@mui/material/Typography'
 import AddIcon from '@/assets/add-icon.svg'
 
 interface Props {
+  onAdd?: () => void;
   children: React.ReactNode
 }
 
 export default (props: Props) => {
-  const { children } = props
+  const { onAdd, children } = props
   return (
     <section>
       <Box mb="49px" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -17,14 +18,17 @@ export default (props: Props) => {
           Activity
         </Typography>
 
-        <Button
-          variant="contained"
-          disableElevation
-          startIcon={<img src={AddIcon} alt="add" />}
-          sx={{ borderRadius: "45px", fontWeight: 600 }}
-        >
-          Tambah
-        </Button>
+        {!!onAdd && (
+          <Button
+            variant="contained"
+            disableElevation
+            startIcon={<img src={AddIcon} alt="add" />}
+            sx={{ borderRadius: "45px", fontWeight: 600 }}
+            onClick={onAdd}
+          >
+            Tambah
+          </Button>
+        )}
       </Box>
 
       <div>

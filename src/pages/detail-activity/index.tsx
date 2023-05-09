@@ -3,6 +3,7 @@ import { useState } from "react"
 import ListItem from "@/components/ListItem"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
+import FormActivity from "@/components/FormActivity";
 
 enum Types {
   ADD,
@@ -48,18 +49,18 @@ export default () => {
     setDialog(DEFAULT_STATE_DIALOG)
   }
 
-  const handleOpen = (id: number, type: Types) => {
+  const handleOpen = (type: Types, id?: number) => {
     setDialog({ open: true, id, type })
   }
 
   return (
-    <Section>
+    <Section onAdd={() => handleOpen(Types.ADD)}>
       {data?.map((res, idx) => (
         <ListItem
           key={idx}
           title={res.title}
-          onDelete={() => handleOpen(res.id, Types.DELETE)}
-          onEdit={() => handleOpen(res.id, Types.EDIT)}
+          onDelete={() => handleOpen(Types.DELETE, res.id)}
+          onEdit={() => handleOpen(Types.EDIT, res.id)}
         />
       ))}
 
@@ -67,6 +68,11 @@ export default () => {
         open={dialog.open && dialog.type === Types.DELETE}
         onCancel={handleClose}
         onDelete={handleClose}
+      />
+
+      <FormActivity
+        open={dialog.open && dialog.type === Types.ADD}
+        onClose={handleClose}
       />
     </Section>
   )
