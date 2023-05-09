@@ -14,7 +14,7 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <Dashboard />,
-        errorElement: <Error />
+        errorElement: <Error />,
       },
       {
         path: 'detail-activity/:id',

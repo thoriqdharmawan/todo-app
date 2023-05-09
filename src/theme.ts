@@ -56,6 +56,14 @@ export const theme = createTheme({
       main: '#16ABF8',
       contrastText: '#fff',
     },
+    secondary: {
+      main: '#F4F4F4',
+      contrastText: '#4A4A4A',
+    },
+    error: {
+      main: '#ED4C5C',
+      contrastText: '#fff',
+    },
   },
   typography: {
     button: {
