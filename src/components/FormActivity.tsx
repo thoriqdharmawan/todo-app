@@ -3,16 +3,19 @@ import { useState } from "react";
 
 import { Box, Button, Divider, IconButton, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { PRIORITY, PRIORITY_COLOR, PRIORITY_LABEL, Types } from "@/utils/constants";
+import { addListItem } from "@/utils/clients";
+
+import useSWRMutation from 'swr/mutation'
 
 import CloseIcon from '@/assets/close-icon.svg'
 
 import Dialog from "./Dialog"
 import Dot from "./Dot";
-
 interface Props {
   open: boolean;
   type: Types;
   onClose: () => void;
+  groupId: string | number | undefined;
 }
 
 interface Wrap {
@@ -117,7 +120,7 @@ const Content = (props: Content) => {
 
 
 export default (props: Props) => {
-  const { open, onClose, type, } = props
+  const { open, onClose, type, groupId } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -125,12 +128,17 @@ export default (props: Props) => {
 
   const handleReset = () => setValues({ name: '', priority: '' })
 
+  const { trigger } = useSWRMutation('/todo-items', addListItem)
+
   const handleChange = (value: string, type: string) => {
     setValues(prev => ({ ...prev, [type]: value }));
   };
 
-  const handleSubmit = () => {
-    handleClose()
+  const handleSubmit = async () => {
+    if (values.name && values.priority) {
+      await trigger({...values, groupId})
+      handleClose()
+    }
   }
 
   const handleClose = () => {

@@ -58,7 +58,7 @@ export default () => {
   }
 
   return (
-    <Section onAdd={handleAddActivity}>
+    <Section title="Activity" onAdd={handleAddActivity}>
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
         {listActivity?.map((res: any) => (
           <Card

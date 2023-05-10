@@ -21,3 +21,24 @@ export const deleteActivity = async (url: string, { arg }: { arg: number | undef
     headers: { "Content-Type": "application/json" },
   })
 }
+
+interface ArgAddListItem {
+  groupId: string | number | undefined;
+  name: string;
+  priority: string;
+}
+
+export const addListItem = async (url: string, { arg }: { arg: ArgAddListItem }) => {
+  const { groupId, name, priority } = arg
+
+  await fetch(`${API_URL}${url}`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      activity_group_id: groupId,
+      is_active: 1,
+      priority: priority,
+      title: name,
+    })
+  })
+}
