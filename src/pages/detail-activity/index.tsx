@@ -5,22 +5,18 @@ import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 import FormActivity from "@/components/FormActivity";
 
-enum Types {
-  ADD,
-  EDIT,
-  DELETE
-}
+import { Types } from "@/global/constants";
 
 interface DialogState {
   open: boolean;
   id: number | undefined;
-  type: Types | undefined;
+  type: Types;
 }
 
 const DEFAULT_STATE_DIALOG: DialogState = {
   open: false,
   id: undefined,
-  type: undefined
+  type: Types.ADD
 }
 
 const data = [
@@ -71,8 +67,9 @@ export default () => {
       />
 
       <FormActivity
-        open={dialog.open && dialog.type === Types.ADD}
+        open={dialog.open && dialog.type !== Types.DELETE}
         onClose={handleClose}
+        type={dialog.type}
       />
     </Section>
   )

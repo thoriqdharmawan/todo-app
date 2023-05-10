@@ -6,20 +6,29 @@ import { Box, Button, Divider, IconButton, MenuItem, Select, TextField, Typograp
 import Dialog from "./Dialog"
 
 import CloseIcon from '@/assets/close-icon.svg'
+import { PRIORITY, PRIORITY_VALUE, Types } from "@/global/constants";
+import Dot from "./Dot";
 
-interface Action {
-  onClose?: () => void;
-  onSubmit?: () => void;
-}
-
-interface Props extends Action {
+interface Props {
   open: boolean;
+  type: Types;
+  onClose?: () => void;
 }
 
 interface Wrap {
   children: React.ReactNode;
   direction?: string;
   padding?: string;
+}
+
+interface ValuesState {
+  name: string;
+  priority: string;
+}
+
+interface Content {
+  onChange: (value: string, type: string) => void;
+  values: ValuesState;
 }
 
 const Wrap = (props: Wrap) => {
@@ -39,30 +48,6 @@ const Wrap = (props: Wrap) => {
     </Box>
   )
 }
-
-const Header = ({ onClose }: Action) => {
-  return (
-    <Wrap>
-      <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
-        Tambah List Item
-      </Typography>
-      <IconButton onClick={onClose}>
-        <img src={CloseIcon} alt="close" />
-      </IconButton>
-    </Wrap>
-  )
-}
-
-interface ValuesState {
-  name: string;
-  priority: string;
-}
-
-interface Content {
-  onChange: (value: string, type: string) => void;
-  values: ValuesState;
-}
-
 
 const Content = (props: Content) => {
   const { onChange, values } = props
@@ -96,48 +81,55 @@ const Content = (props: Content) => {
           displayEmpty
           value={values.priority}
           placeholder="Pilih priority"
-          sx={{ width: '205px' }}
+          sx={{ width: '205px', backgroundColor: values.priority ? 'unset' : '#E5E5E5' }}
           onChange={(e) => onChange(e.target.value, 'priority')}
           renderValue={(selected) => {
             if (!values.priority) {
               return (
                 <Typography
-                  sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}
+                  sx={{
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    color: '#111111',
+                  }}
                 >
                   Pilih priority
                 </Typography>
               )
             }
 
-            return selected
+            return (
+              <Box display="flex" alignItems="center">
+                <Dot color='#ED4C5C' />
+                <Typography
+                  sx={{
+                    fontSize: '16px',
+                    fontWeight: '400',
+                    color: '#111111',
+                  }}
+                >
+                  {PRIORITY_VALUE[selected]}
+                </Typography>
+              </Box>
+
+            )
           }}
         >
-          <MenuItem value="very-high">Very High</MenuItem>
-          <MenuItem value="high">High</MenuItem>
+          {PRIORITY.map(({ value, label, color }) => (
+            <MenuItem value={value} key={value}>
+              <Dot color={color} />
+              <Typography>{label}</Typography>
+            </MenuItem>
+          ))}
         </Select>
       </Box>
     </Wrap>
   )
 }
 
-const Footer = ({ onSubmit }: Action) => {
-  return (
-    <Wrap padding="16px 40px">
-      <Box width="100%">
-        <Button
-          variant="contained"
-          onClick={onSubmit}
-          sx={{ display: 'block', marginLeft: 'auto' }}
-        >
-          Simpan
-        </Button>
-      </Box>
-    </Wrap>
-  )
-}
 
 export default (props: Props) => {
-  const { open, onClose } = props
+  const { open, onClose, type, } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -156,11 +148,30 @@ export default (props: Props) => {
   return (
     <Dialog open={open}>
       <Box sx={{ width: '830px' }}>
-        <Header onClose={onClose} />
+        <Wrap>
+          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
+            {type === Types.ADD ? 'Tambah List Item' : 'Ubah List Item'}
+          </Typography>
+          <IconButton onClick={onClose}>
+            <img src={CloseIcon} alt="close" />
+          </IconButton>
+        </Wrap>
+
         <Divider sx={{ border: '1px solid #E5E5E5' }} />
+
         <Content values={values} onChange={handleChange} />
         <Divider sx={{ border: '1px solid #E5E5E5' }} />
-        <Footer onSubmit={handleSubmit} />
+
+        <Wrap padding="16px 40px">
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            sx={{ display: 'block', marginLeft: 'auto' }}
+            disabled={!values.name || !values.priority}
+          >
+            Simpan
+          </Button>
+        </Wrap>
       </Box>
     </Dialog>
   )
