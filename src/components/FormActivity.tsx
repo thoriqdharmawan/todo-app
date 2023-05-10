@@ -15,6 +15,7 @@ interface Props {
   open: boolean;
   type: Types;
   onClose: () => void;
+  onCompleted: () => void;
   groupId: string | number | undefined;
 }
 
@@ -120,7 +121,7 @@ const Content = (props: Content) => {
 
 
 export default (props: Props) => {
-  const { open, onClose, type, groupId } = props
+  const { open, onClose, onCompleted, type, groupId } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -137,6 +138,7 @@ export default (props: Props) => {
   const handleSubmit = async () => {
     if (values.name && values.priority) {
       await trigger({...values, groupId})
+      onCompleted()
       handleClose()
     }
   }

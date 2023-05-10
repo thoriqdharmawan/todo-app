@@ -41,6 +41,7 @@ const DEFAULT_STATE_DIALOG: DialogState = {
 
 export default () => {
   const { id } = useParams();
+  const DETAIL_ACTIVITY = `/activity-groups/${id}`
 
   const [detailActivity, setDetailActivity] = useState<DataState>({
     title: '',
@@ -50,7 +51,7 @@ export default () => {
   })
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
 
-  const { error } = useSWR(`/activity-groups/${id}`, getter, {
+  const { error, mutate } = useSWR(DETAIL_ACTIVITY, getter, {
     onSuccess: (data) => setDetailActivity(data)
   })
 
@@ -88,6 +89,7 @@ export default () => {
       <FormActivity
         open={dialog.open && dialog.type !== Types.DELETE}
         onClose={handleClose}
+        onCompleted={() => mutate(DETAIL_ACTIVITY)}
         type={dialog.type}
         groupId={id}
       />
