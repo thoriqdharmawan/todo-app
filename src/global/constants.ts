@@ -4,11 +4,11 @@ export enum Types {
   DELETE
 }
 
-type PriorityTypes = {
+type Base = {
   [key: string]: string
 }
 
-export const PRIORITY_VALUE: PriorityTypes = {
+export const PRIORITY_LABEL: Base = {
   VERYHIGH: 'Very High',
   HIGH: 'High',
   MEDIUM: 'Medium',
@@ -16,30 +16,38 @@ export const PRIORITY_VALUE: PriorityTypes = {
   VERYLOW: 'Very Low',
 }
 
+export const PRIORITY_COLOR: Base = {
+  VERYHIGH: '#ED4C5C',
+  HIGH: '#F8A541',
+  MEDIUM: '#00A790',
+  LOW: '#428BC1',
+  VERYLOW: '#8942C1',
+}
+
 export const PRIORITY = [
   {
+    label: PRIORITY_LABEL.VERYHIGH,
+    color: PRIORITY_COLOR.VERYHIGH,
     value: 'VERYHIGH',
-    label: 'Very High',
-    color: '#ED4C5C',
   },
   {
+    label: PRIORITY_LABEL.HIGH,
+    color: PRIORITY_COLOR.HIGH,
     value: 'HIGH',
-    label: 'High',
-    color: '#F8A541',
   },
   {
+    label: PRIORITY_LABEL.MEDIUM,
+    color: PRIORITY_COLOR.MEDIUM,
     value: 'MEDIUM',
-    label: 'Medium',
-    color: '#00A790',
   },
   {
-    value: ':LOW',
-    label: 'Low',
-    color: '#428BC1',
+    label: PRIORITY_LABEL.LOW,
+    color: PRIORITY_COLOR.LOW,
+    value: 'LOW',
   },
   {
+    label: PRIORITY_LABEL.VERYLOW,
+    color: PRIORITY_COLOR.VERYLOW,
     value: 'VERYLOW',
-    label: 'Very Low',
-    color: '#8942C1',
   },
 ]

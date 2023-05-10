@@ -57,6 +57,22 @@ export const theme = createTheme({
           border: '1px solid #E5E5E5',
         }
       }
+    },
+    MuiMenu: {
+      styleOverrides: {
+        paper: {
+          boxShadow: 'none',
+          borderRadius: '6px'
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          padding: '14px 17px',
+          border: '1px solid #E5E5E5'
+        }
+      }
     }
   },
   palette: {

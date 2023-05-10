@@ -2,17 +2,17 @@
 import { useState } from "react";
 
 import { Box, Button, Divider, IconButton, MenuItem, Select, TextField, Typography } from "@mui/material";
-
-import Dialog from "./Dialog"
+import { PRIORITY, PRIORITY_COLOR, PRIORITY_LABEL, Types } from "@/global/constants";
 
 import CloseIcon from '@/assets/close-icon.svg'
-import { PRIORITY, PRIORITY_VALUE, Types } from "@/global/constants";
+
+import Dialog from "./Dialog"
 import Dot from "./Dot";
 
 interface Props {
   open: boolean;
   type: Types;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 interface Wrap {
@@ -86,13 +86,7 @@ const Content = (props: Content) => {
           renderValue={(selected) => {
             if (!values.priority) {
               return (
-                <Typography
-                  sx={{
-                    fontSize: '16px',
-                    fontWeight: '400',
-                    color: '#111111',
-                  }}
-                >
+                <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
                   Pilih priority
                 </Typography>
               )
@@ -100,15 +94,9 @@ const Content = (props: Content) => {
 
             return (
               <Box display="flex" alignItems="center">
-                <Dot color='#ED4C5C' />
-                <Typography
-                  sx={{
-                    fontSize: '16px',
-                    fontWeight: '400',
-                    color: '#111111',
-                  }}
-                >
-                  {PRIORITY_VALUE[selected]}
+                <Dot color={PRIORITY_COLOR[selected]} />
+                <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
+                  {PRIORITY_LABEL[selected]}
                 </Typography>
               </Box>
 
@@ -135,14 +123,19 @@ export default (props: Props) => {
     priority: ''
   })
 
+  const handleReset = () => setValues({ name: '', priority: '' })
+
   const handleChange = (value: string, type: string) => {
     setValues(prev => ({ ...prev, [type]: value }));
   };
 
   const handleSubmit = () => {
-    if (onClose) {
-      onClose()
-    }
+    handleClose()
+  }
+
+  const handleClose = () => {
+    handleReset()
+    onClose()
   }
 
   return (
@@ -152,7 +145,7 @@ export default (props: Props) => {
           <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
             {type === Types.ADD ? 'Tambah List Item' : 'Ubah List Item'}
           </Typography>
-          <IconButton onClick={onClose}>
+          <IconButton onClick={handleClose}>
             <img src={CloseIcon} alt="close" />
           </IconButton>
         </Wrap>
