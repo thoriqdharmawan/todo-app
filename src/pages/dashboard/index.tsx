@@ -52,8 +52,8 @@ export default () => {
   }
 
   const handleDelete = async () => {
-    await deleteAct(dialog.id)
     handleClose()
+    await deleteAct(dialog.id)
     await mutate(LIST_ACTIVITY)
   }
 
