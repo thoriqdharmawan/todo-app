@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Box, Button, Divider, IconButton, MenuItem, Select, TextField, Typography } from "@mui/material";
 import { PRIORITY, PRIORITY_COLOR, PRIORITY_LABEL, Types } from "@/utils/constants";
@@ -14,7 +14,7 @@ interface ValuesState {
   priority: string;
 }
 
-interface Props {
+interface Props extends Partial<ValuesState> {
   open: boolean;
   type: Types;
   onClose: () => void;
@@ -119,21 +119,30 @@ const Content = (props: Content) => {
 
 
 export default (props: Props) => {
-  const { open, type, onClose, onSubmit } = props
+  const { open, type, onClose, onSubmit, priority, name } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
   })
 
+  useEffect(() => {
+    if (type === Types.EDIT) {
+      setValues({
+        name: name || '',
+        priority: priority || ''
+      })
+    }
+  }, [type])
+
   const handleReset = () => setValues({ name: '', priority: '' })
 
-  const handleChange = (value: string, type: string) => {
-    setValues(prev => ({ ...prev, [type]: value }));
+  const handleChange = (value: string, valuetype: string) => {
+    setValues(prev => ({ ...prev, [valuetype]: value }));
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (values.name && values.priority) {
-      await onSubmit(values)
+      onSubmit(values)
       handleReset()
     }
   }

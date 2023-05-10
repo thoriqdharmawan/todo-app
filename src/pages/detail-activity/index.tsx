@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom";
 import { PRIORITY_COLOR, Types } from "@/utils/constants";
-import { addListItem, deleteActivity, getter } from "@/utils/clients";
+import { addListItem, deleteActivity, getter, updateListItem } from "@/utils/clients";
 
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
@@ -11,11 +11,15 @@ import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 import FormActivity from "@/components/FormActivity";
 
-interface DialogState {
+interface OpenAciton {
+  type: Types,
+  id?: number,
+  title?: string
+  priority?: string
+}
+
+interface DialogState extends OpenAciton {
   open: boolean;
-  id: number | undefined;
-  type: Types;
-  title: string;
 }
 
 interface Todo {
@@ -37,7 +41,8 @@ const DEFAULT_STATE_DIALOG: DialogState = {
   open: false,
   id: undefined,
   type: Types.ADD,
-  title: ''
+  title: '',
+  priority: ''
 }
 
 export default () => {
@@ -57,15 +62,15 @@ export default () => {
   })
 
   const { trigger: addItem } = useSWRMutation('/todo-items', addListItem)
+  const { trigger: updateItem } = useSWRMutation('/todo-items', updateListItem)
   const { trigger: deleteListItem } = useSWRMutation('/todo-items', deleteActivity)
-
 
   const handleClose = () => {
     setDialog(DEFAULT_STATE_DIALOG)
   }
 
-  const handleOpen = (type: Types, id?: number, title?: string) => {
-    setDialog({ open: true, id, type, title: title || '' })
+  const handleOpen = ({ type, id, title, priority }: OpenAciton) => {
+    setDialog({ open: true, id, type, title: title || '', priority: priority || '' })
   }
 
   if (error) {
@@ -82,20 +87,24 @@ export default () => {
     name: string;
     priority: string;
   }) => {
-    await addItem({ ...values, groupId: id })
+    if (dialog.type === Types.ADD) {
+      await addItem({ ...values, groupId: id })
+    } else {
+      updateItem({ ...values, id: dialog.id })
+    }
     handleClose()
     await mutate(DETAIL_ACTIVITY)
   }
 
   return (
-    <Section title={detailActivity.title || 'New Activity'} onAdd={() => handleOpen(Types.ADD)}>
+    <Section title={detailActivity.title || 'New Activity'} onAdd={() => handleOpen({ type: Types.ADD })}>
       {detailActivity?.todo_items?.map((res: any) => (
         <ListItem
           key={res.id}
           title={res.title}
           dotcolor={PRIORITY_COLOR[res.priority]}
-          onDelete={() => handleOpen(Types.DELETE, res.id, res.title)}
-          onEdit={() => handleOpen(Types.EDIT, res.id)}
+          onDelete={() => handleOpen({ type: Types.DELETE, id: res.id, title: res.title })}
+          onEdit={() => handleOpen({ type: Types.EDIT, id: res.id, title: res.title, priority: res.priority })}
         />
       ))}
 
@@ -113,6 +122,8 @@ export default () => {
         onSubmit={handleSubmit}
         type={dialog.type}
         groupId={id}
+        priority={dialog.priority}
+        name={dialog.title}
       />
     </Section>
   )

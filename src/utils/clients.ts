@@ -22,10 +22,17 @@ export const deleteActivity = async (url: string, { arg }: { arg: number | undef
   })
 }
 
-interface ArgAddListItem {
-  groupId: string | number | undefined;
+interface FormField {
   name: string;
   priority: string;
+}
+
+interface ArgAddListItem extends FormField {
+  groupId: string | number | undefined;
+}
+
+interface ArgUpdateListItem extends FormField {
+  id: string | number | undefined;
 }
 
 export const addListItem = async (url: string, { arg }: { arg: ArgAddListItem }) => {
@@ -37,6 +44,19 @@ export const addListItem = async (url: string, { arg }: { arg: ArgAddListItem })
     body: JSON.stringify({
       activity_group_id: groupId,
       is_active: 1,
+      priority: priority,
+      title: name,
+    })
+  })
+}
+
+export const updateListItem = async (url: string, { arg }: { arg: ArgUpdateListItem }) => {
+  const { id, name, priority } = arg
+
+  await fetch(`${API_URL}${url}/${id}`, {
+    method: 'PATCH',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
       priority: priority,
       title: name,
     })

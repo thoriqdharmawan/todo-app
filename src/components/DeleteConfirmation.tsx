@@ -5,7 +5,7 @@ import Dialog from "./Dialog";
 
 interface Props {
   open: boolean;
-  title: string;
+  title: string | undefined;
   type: string;
   onDelete: () => void;
   onCancel: () => void;
