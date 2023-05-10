@@ -9,12 +9,14 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@/assets/delete-icon.svg'
 
 interface Props {
+  title: string;
+  date: string;
   onClick: () => void;
   onDelete: () => void;
 }
 
 export default (props: Props) => {
-  const { onClick, onDelete } = props
+  const { title, date, onClick, onDelete } = props
 
   const handleDelete = (ev: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     ev.stopPropagation();
@@ -38,12 +40,12 @@ export default (props: Props) => {
       })}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Typography fontWeight={700} fontSize={18}>Daftar Belanja Bulanan</Typography>
+        <Typography fontWeight={700} fontSize={18}>{title || 'New Activity'}</Typography>
       </CardContent>
 
       <CardActions sx={{ padding: 0, display: 'flex', justifyContent: 'space-between' }}>
         <Typography color="#888888" fontSize="12px">
-          5 Oktober 2021
+          {date}
         </Typography>
         <IconButton onClick={handleDelete} size="medium" color="primary">
           <img src={DeleteIcon} alt="delete" />

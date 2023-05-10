@@ -1,11 +1,10 @@
 import { useState } from "react"
+import { Types } from "@/utils/constants";
 
 import ListItem from "@/components/ListItem"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 import FormActivity from "@/components/FormActivity";
-
-import { Types } from "@/global/constants";
 
 interface DialogState {
   open: boolean;
@@ -19,7 +18,7 @@ const DEFAULT_STATE_DIALOG: DialogState = {
   type: Types.ADD
 }
 
-const data = [
+const dataTest = [
   {
     id: 1,
     title: 'Telur Ayam',
@@ -51,7 +50,7 @@ export default () => {
 
   return (
     <Section onAdd={() => handleOpen(Types.ADD)}>
-      {data?.map((res, idx) => (
+      {dataTest?.map((res, idx) => (
         <ListItem
           key={idx}
           title={res.title}

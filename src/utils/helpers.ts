@@ -1,0 +1,1 @@
+export const formatDate = (date: Date) => new Date(date).toLocaleDateString("id-ID", { year: 'numeric', month: 'long', day: 'numeric' })

@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 import { Box, Button, Divider, IconButton, MenuItem, Select, TextField, Typography } from "@mui/material";
-import { PRIORITY, PRIORITY_COLOR, PRIORITY_LABEL, Types } from "@/global/constants";
+import { PRIORITY, PRIORITY_COLOR, PRIORITY_LABEL, Types } from "@/utils/constants";
 
 import CloseIcon from '@/assets/close-icon.svg'
 
