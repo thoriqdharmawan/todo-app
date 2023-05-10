@@ -90,7 +90,7 @@ export default () => {
     if (dialog.type === Types.ADD) {
       await addItem({ ...values, groupId: id })
     } else {
-      updateItem({ ...values, id: dialog.id })
+      await updateItem({ ...values, id: dialog.id })
     }
     handleClose()
     await mutate(DETAIL_ACTIVITY)
