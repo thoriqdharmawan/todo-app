@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 
 export default () => {
   return (
-    <Box sx={{ backgroundColor: '#E5E5E51F', minHeight: '100vh' }}>
+    <Box sx={{ backgroundColor: '#E5E5E51F', minHeight: '100vh'}}>
       <AppBar position="static" sx={(theme) => ({ boxShadow: theme.bs[1], marginBottom: '43px' })}>
         <Container maxWidth="md" disableGutters>
           <Typography
@@ -26,6 +26,7 @@ export default () => {
         <Outlet />
       </Container>
 
+      <Box sx={{height: '120px'}} />
     </Box>
   )
 }
