@@ -14,3 +14,10 @@ export const addActivity = async (url: string) => {
     })
   })
 }
+
+export const deleteActivity = async (url: string, { arg }: { arg: number | undefined }) => {
+  await fetch(`${API_URL}${url}/${arg}`, {
+    method: 'DELETE',
+    headers: { "Content-Type": "application/json" },
+  })
+}

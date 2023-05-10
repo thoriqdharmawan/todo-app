@@ -10,12 +10,14 @@ interface DialogState {
   open: boolean;
   id: number | undefined;
   type: Types;
+  title: string;
 }
 
 const DEFAULT_STATE_DIALOG: DialogState = {
   open: false,
   id: undefined,
-  type: Types.ADD
+  type: Types.ADD,
+  title: ''
 }
 
 const dataTest = [
@@ -45,7 +47,7 @@ export default () => {
   }
 
   const handleOpen = (type: Types, id?: number) => {
-    setDialog({ open: true, id, type })
+    setDialog({ open: true, id, type, title: 'ok' })
   }
 
   return (
@@ -61,6 +63,8 @@ export default () => {
 
       <DeleteConfirmation
         open={dialog.open && dialog.type === Types.DELETE}
+        title={dialog.title}
+        type="List Item"
         onCancel={handleClose}
         onDelete={handleClose}
       />

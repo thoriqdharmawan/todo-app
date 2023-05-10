@@ -5,12 +5,14 @@ import Dialog from "./Dialog";
 
 interface Props {
   open: boolean;
+  title: string;
+  type: string;
   onDelete: () => void;
   onCancel: () => void;
 }
 
 export default (props: Props) => {
-  const { open, onDelete, onCancel } = props
+  const { open, title, type, onDelete, onCancel } = props
 
   return (
     <Dialog open={open}>
@@ -33,7 +35,7 @@ export default (props: Props) => {
             margin: '34px 0px 46px'
           }}
         >
-          Apakah anda yakin menghapus activity <Typography component="span" sx={{ fontWeight: 700 }}>“Meeting dengan Client”?</Typography>
+          Apakah anda yakin menghapus {type} <Typography component="span" sx={{ fontWeight: 700 }}>“{title}”?</Typography>
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '100%' }}>
           <Button

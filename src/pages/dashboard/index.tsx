@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { addActivity, getter } from "@/utils/clients"
+import { addActivity, deleteActivity, getter } from "@/utils/clients"
 import { formatDate } from "@/utils/helpers"
 import { GLOBAL_EMAIL } from "@/utils/global"
 
@@ -14,11 +14,13 @@ import DeleteConfirmation from "@/components/DeleteConfirmation"
 
 interface DialogState {
   open: boolean;
+  title: string;
   id: number | undefined;
 }
 
 const DEFAULT_STATE_DIALOG: DialogState = {
   open: false,
+  title: '',
   id: undefined
 }
 
@@ -37,14 +39,21 @@ export default () => {
     onSuccess: (data) => setListActivity(data?.data || [])
   })
 
-  const { trigger } = useSWRMutation('/activity-groups', addActivity)
+  const { trigger: addAct } = useSWRMutation('/activity-groups', addActivity)
+  const { trigger: deleteAct } = useSWRMutation('/activity-groups', deleteActivity)
 
   if (error) {
     throw new Error("error");
   }
 
   const handleAddActivity = async () => {
-    await trigger()
+    await addAct()
+    await mutate(LIST_ACTIVITY)
+  }
+
+  const handleDelete = async () => {
+    await deleteAct(dialog.id)
+    handleClose()
     await mutate(LIST_ACTIVITY)
   }
 
@@ -57,15 +66,17 @@ export default () => {
             title={res.title}
             date={formatDate(res.created_at)}
             onClick={() => navigate(`detail-activity/${res.id}`)}
-            onDelete={() => setDialog({ open: true, id: res.id })}
+            onDelete={() => setDialog({ open: true, id: res.id, title: res.title })}
           />
         ))}
       </Stack>
 
       <DeleteConfirmation
+        type="activity"
         open={dialog.open}
+        title={dialog.title}
         onCancel={handleClose}
-        onDelete={handleClose}
+        onDelete={handleDelete}
       />
     </Section>
   )
