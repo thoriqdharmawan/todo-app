@@ -22,15 +22,20 @@ const DEFAULT_STATE_DIALOG: DialogState = {
   id: undefined
 }
 
+const LIST_ACTIVITY = `/activity-groups?email=${GLOBAL_EMAIL}`
+
 export default () => {
   const navigate = useNavigate();
+  const [listActivity, setListActivity] = useState([])
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
 
   const handleClose = () => {
     setDialog(DEFAULT_STATE_DIALOG)
   }
 
-  const { data, error } = useSWR(`/activity-groups?email=${GLOBAL_EMAIL}`, getter)
+  const { error, mutate } = useSWR(LIST_ACTIVITY, getter, {
+    onSuccess: (data) => setListActivity(data?.data || [])
+  })
 
   const { trigger } = useSWRMutation('/activity-groups', addActivity)
 
@@ -38,10 +43,15 @@ export default () => {
     throw new Error("error");
   }
 
+  const handleAddActivity = async () => {
+    await trigger()
+    await mutate(LIST_ACTIVITY)
+  }
+
   return (
-    <Section onAdd={trigger}>
+    <Section onAdd={handleAddActivity}>
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
-        {data?.data.map((res: any) => (
+        {listActivity?.map((res: any) => (
           <Card
             key={res.id}
             title={res.title}
