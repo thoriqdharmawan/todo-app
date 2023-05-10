@@ -9,45 +9,45 @@ type Base = {
 }
 
 export const PRIORITY_LABEL: Base = {
-  VERYHIGH: 'Very High',
-  HIGH: 'High',
-  MEDIUM: 'Medium',
-  LOW: 'Low',
-  VERYLOW: 'Very Low',
+  'very-high': 'Very High',
+  'high': 'High',
+  'medium': 'Medium',
+  'low': 'Low',
+  'very-low': 'Very Low',
 }
 
 export const PRIORITY_COLOR: Base = {
-  VERYHIGH: '#ED4C5C',
-  HIGH: '#F8A541',
-  MEDIUM: '#00A790',
-  LOW: '#428BC1',
-  VERYLOW: '#8942C1',
+  'very-high': '#ED4C5C',
+  'high': '#F8A541',
+  'medium': '#00A790',
+  'low': '#428BC1',
+  'very-low': '#8942C1',
 }
 
 export const PRIORITY = [
   {
-    label: PRIORITY_LABEL.VERYHIGH,
-    color: PRIORITY_COLOR.VERYHIGH,
-    value: 'VERYHIGH',
+    label: PRIORITY_LABEL['very-high'],
+    color: PRIORITY_COLOR['very-high'],
+    value: 'very-high',
   },
   {
-    label: PRIORITY_LABEL.HIGH,
-    color: PRIORITY_COLOR.HIGH,
-    value: 'HIGH',
+    label: PRIORITY_LABEL['high'],
+    color: PRIORITY_COLOR['high'],
+    value: 'high',
   },
   {
-    label: PRIORITY_LABEL.MEDIUM,
-    color: PRIORITY_COLOR.MEDIUM,
-    value: 'MEDIUM',
+    label: PRIORITY_LABEL['medium'],
+    color: PRIORITY_COLOR['medium'],
+    value: 'medium',
   },
   {
-    label: PRIORITY_LABEL.LOW,
-    color: PRIORITY_COLOR.LOW,
-    value: 'LOW',
+    label: PRIORITY_LABEL['low'],
+    color: PRIORITY_COLOR['low'],
+    value: 'low',
   },
   {
-    label: PRIORITY_LABEL.VERYLOW,
-    color: PRIORITY_COLOR.VERYLOW,
-    value: 'VERYLOW',
+    label: PRIORITY_LABEL['very-low'],
+    color: PRIORITY_COLOR['very-low'],
+    value: 'very-low',
   },
 ]

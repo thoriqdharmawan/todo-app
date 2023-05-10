@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom";
 import { Types } from "@/utils/constants";
-import { getter } from "@/utils/clients";
+import { addListItem, deleteActivity, getter } from "@/utils/clients";
 
 import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
 import ListItem from "@/components/ListItem"
 import Section from "@/components/Section"
@@ -55,16 +56,35 @@ export default () => {
     onSuccess: (data) => setDetailActivity(data)
   })
 
+  const { trigger: addItem } = useSWRMutation('/todo-items', addListItem)
+  const { trigger: deleteListItem } = useSWRMutation('/todo-items', deleteActivity)
+
+
   const handleClose = () => {
     setDialog(DEFAULT_STATE_DIALOG)
   }
 
-  const handleOpen = (type: Types, id?: number) => {
-    setDialog({ open: true, id, type, title: 'ok' })
+  const handleOpen = (type: Types, id?: number, title?: string) => {
+    setDialog({ open: true, id, type, title: title || '' })
   }
 
   if (error) {
     throw new Error("error");
+  }
+
+  const handleDelete = async () => {
+    await deleteListItem(dialog.id)
+    handleClose()
+    await mutate(DETAIL_ACTIVITY)
+  }
+
+  const handleSubmit = async (values: {
+    name: string;
+    priority: string;
+  }) => {
+    await addItem({ ...values, groupId: id })
+    handleClose()
+    await mutate(DETAIL_ACTIVITY)
   }
 
   return (
@@ -73,7 +93,7 @@ export default () => {
         <ListItem
           key={res.id}
           title={res.title}
-          onDelete={() => handleOpen(Types.DELETE, res.id)}
+          onDelete={() => handleOpen(Types.DELETE, res.id, res.title)}
           onEdit={() => handleOpen(Types.EDIT, res.id)}
         />
       ))}
@@ -83,13 +103,13 @@ export default () => {
         title={dialog.title}
         type="List Item"
         onCancel={handleClose}
-        onDelete={handleClose}
+        onDelete={handleDelete}
       />
 
       <FormActivity
         open={dialog.open && dialog.type !== Types.DELETE}
         onClose={handleClose}
-        onCompleted={() => mutate(DETAIL_ACTIVITY)}
+        onSubmit={handleSubmit}
         type={dialog.type}
         groupId={id}
       />
