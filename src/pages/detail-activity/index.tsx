@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useParams } from "react-router-dom";
-import { Types } from "@/utils/constants";
+import { PRIORITY_COLOR, Types } from "@/utils/constants";
 import { addListItem, deleteActivity, getter } from "@/utils/clients";
 
 import useSWR from 'swr'
@@ -93,6 +93,7 @@ export default () => {
         <ListItem
           key={res.id}
           title={res.title}
+          dotcolor={PRIORITY_COLOR[res.priority]}
           onDelete={() => handleOpen(Types.DELETE, res.id, res.title)}
           onEdit={() => handleOpen(Types.EDIT, res.id)}
         />

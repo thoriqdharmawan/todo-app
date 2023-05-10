@@ -5,12 +5,13 @@ import EditIcon from '@/assets/edit-icon.svg'
 
 interface Props {
   title: string;
+  dotcolor: string;
   onDelete: () => void;
   onEdit: () => void;
 }
 
 export default (props: Props) => {
-  const { title, onDelete, onEdit } = props
+  const { title, dotcolor, onDelete, onEdit } = props
 
   return (
     <Box
@@ -30,7 +31,7 @@ export default (props: Props) => {
           sx={{
             width: '9px',
             height: '9px',
-            backgroundColor: '#ED4C5C',
+            backgroundColor: dotcolor,
             margin: '0px 16px',
             borderRadius: '50%'
           }}
