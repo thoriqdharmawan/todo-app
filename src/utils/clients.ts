@@ -1,5 +1,16 @@
-import { API_URL } from "./global"
+import { API_URL, GLOBAL_EMAIL } from "./global"
 
-export const fetcher = async (url: any) => {
+export const getter = async (url: string) => {
   return await fetch(`${API_URL}${url}`).then(res => res.json())
+}
+
+export const addActivity = async (url: string) => {
+  await fetch(`${API_URL}${url}`, {
+    method: 'POST',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email: GLOBAL_EMAIL,
+      title: 'New Activity'
+    })
+  })
 }

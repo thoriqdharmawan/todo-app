@@ -1,14 +1,16 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { fetcher } from "@/utils/clients"
+import { addActivity, getter } from "@/utils/clients"
+import { formatDate } from "@/utils/helpers"
+import { GLOBAL_EMAIL } from "@/utils/global"
 
 import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 import Stack from "@mui/material/Stack"
 
 import Card from "@/components/Card"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
-import { formatDate } from "@/utils/helpers"
 
 interface DialogState {
   open: boolean;
@@ -28,16 +30,16 @@ export default () => {
     setDialog(DEFAULT_STATE_DIALOG)
   }
 
-  const { data, error, isLoading } = useSWR('/activity-groups?email=test@email.com', fetcher)
+  const { data, error } = useSWR(`/activity-groups?email=${GLOBAL_EMAIL}`, getter)
 
-  console.log({ data, error, isLoading })
+  const { trigger } = useSWRMutation('/activity-groups', addActivity)
 
   if (error) {
     throw new Error("error");
   }
 
   return (
-    <Section>
+    <Section onAdd={trigger}>
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
         {data?.data.map((res: any) => (
           <Card
