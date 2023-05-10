@@ -133,7 +133,8 @@ export default (props: Props) => {
 
   const handleSubmit = async () => {
     if (values.name && values.priority) {
-      onSubmit(values)
+      await onSubmit(values)
+      handleReset()
     }
   }
 
