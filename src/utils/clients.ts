@@ -72,3 +72,13 @@ export const updateTitleGroup = async (url: string, { arg }: { arg: { id: string
     body: JSON.stringify({ title })
   })
 }
+
+export const updateStatusItem = async (url: string, { arg }: { arg: { id: string | number | undefined; is_active: boolean } }) => {
+  const { id, is_active } = arg
+
+  await fetch(`${API_URL}${url}/${id}`, {
+    method: 'PATCH',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ is_active })
+  })
+}

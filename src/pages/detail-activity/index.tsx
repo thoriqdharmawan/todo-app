@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { PRIORITY_COLOR, Types } from "@/utils/constants";
-import { addListItem, deleteActivity, getter, updateListItem, updateTitleGroup } from "@/utils/clients";
+import { addListItem, deleteActivity, getter, updateListItem, updateStatusItem, updateTitleGroup } from "@/utils/clients";
 
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
@@ -51,6 +51,7 @@ export default () => {
   const { trigger: addItem } = useSWRMutation('/todo-items', addListItem)
   const { trigger: updateItem } = useSWRMutation('/todo-items', updateListItem)
   const { trigger: updateTitle } = useSWRMutation('/activity-groups', updateTitleGroup)
+  const { trigger: updateStatus } = useSWRMutation('/todo-items', updateStatusItem)
   const { trigger: deleteListItem } = useSWRMutation('/todo-items', deleteActivity)
 
   const handleClose = () => {
@@ -88,6 +89,11 @@ export default () => {
     updateTitle({ title, id })
   }
 
+  const handleChangeStatus = async (checked: boolean, id: number) => {
+    await updateStatus({ is_active: !checked, id })
+    await mutate()
+  }
+
   return (
     <Section
       title={data?.title}
@@ -103,7 +109,9 @@ export default () => {
         <ListItem
           key={res.id}
           title={res.title}
+          active={res.is_active}
           dotcolor={PRIORITY_COLOR[res.priority]}
+          onChageStatus={(checked: boolean) => handleChangeStatus(checked, res.id)}
           onDelete={() => handleOpen({ type: Types.DELETE, id: res.id, title: res.title })}
           onEdit={() => handleOpen({ type: Types.EDIT, id: res.id, title: res.title, priority: res.priority })}
         />
