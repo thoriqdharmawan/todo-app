@@ -77,21 +77,29 @@ export default ({ open, sort, onClose, onSort, id, anchorEl, children }: Props) 
           <MenuItem
             key={idx}
             onClick={() => handleSort(value)}
-            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
-            data-cy="sort-selection"
           >
-            <Box display="flex">
-              <img src={icon} alt="icon" data-cy="sort-selection-icon" />
-              <Typography
-                sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}
-                data-cy="sort-selection-title"
-              >
-                {label}
-              </Typography>
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%'
+              }}
+              data-cy="sort-selection"
+            >
+              <Box display="flex">
+                <img src={icon} alt="icon" data-cy="sort-selection-icon" />
+                <Typography
+                  sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}
+                  data-cy="sort-selection-title"
+                >
+                  {label}
+                </Typography>
+              </Box>
+              {sort === value && (
+                <img src={CheckIcon} alt="icon" data-cy="sort-selection-selected" />
+              )}
             </Box>
-            {sort === value && (
-              <img src={CheckIcon} alt="icon" data-cy="sort-selection-selected" />
-            )}
           </MenuItem>
         ))}
       </Menu>
