@@ -1,4 +1,4 @@
-import { Box, Menu, MenuItem, Typography } from "@mui/material"
+import { Box, MenuItem, Popover, Typography } from "@mui/material"
 
 import TerbaruIcon from '@/assets/terbaru-icon.svg'
 import CheckIcon from '@/assets/check-icon.svg'
@@ -48,11 +48,10 @@ export default ({ open, sort, onClose, onSort, id, anchorEl }: Props) => {
   }
 
   return (
-    <Menu
+    <Popover
       id={id}
-      aria-labelledby={id}
-      anchorEl={anchorEl}
       open={open}
+      anchorEl={anchorEl}
       onClose={onClose}
       anchorOrigin={{
         vertical: 'bottom',
@@ -71,31 +70,28 @@ export default ({ open, sort, onClose, onSort, id, anchorEl }: Props) => {
       }}
     >
       {LIST.map(({ label, icon, value }, idx) => (
-        <div
+        <MenuItem
           onClick={() => handleSort(value)}
           data-cy="sort-selection"
           key={idx}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: '100%'
+          }}
         >
-          <MenuItem
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%'
-            }}
-          >
-            <Box display="flex">
-              <img src={icon} alt="icon" />
-              <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
-                {label}
-              </Typography>
-            </Box>
-            {sort === value && (
-              <img src={CheckIcon} alt="icon" />
-            )}
-          </MenuItem>
-        </div>
+          <Box display="flex">
+            <img src={icon} alt="icon" />
+            <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
+              {label}
+            </Typography>
+          </Box>
+          {sort === value && (
+            <img src={CheckIcon} alt="icon" />
+          )}
+        </MenuItem>
       ))}
-    </Menu>
+    </Popover>
   )
 }
