@@ -168,7 +168,7 @@ export default (props: Props) => {
   return (
     <Dialog open={open} onClose={handleClose}>
       <Box sx={{ width: '830px' }} data-cy="modal-add">
-        <Wrap data-cy="sort-selection">
+        <Wrap>
           <Typography data-cy={cytitle} sx={{ fontSize: '18px', fontWeight: '600' }}>
             {type === Types.ADD ? 'Tambah List Item' : 'Ubah List Item'}
           </Typography>

@@ -73,7 +73,7 @@ export default ({ open, sort, onClose, onSort, id, anchorEl }: Props) => {
         })
       }}
     >
-      <MenuList data-cy="todo-sort-button">
+      <MenuList>
         {LIST.map(({ label, icon, value }, idx) => (
           <MenuItem
             onClick={() => handleSort(value)}
