@@ -1,6 +1,10 @@
 import { Box, MenuItem, Popover, Typography } from "@mui/material"
 
 import TerbaruIcon from '@/assets/terbaru-icon.svg'
+import TerlamaIcon from '@/assets/terlama-icon.svg'
+import AZIcon from '@/assets/az-icon.svg'
+import ZAIcon from '@/assets/za-icon.svg'
+import BSIcon from '@/assets/bs-icon.svg'
 import CheckIcon from '@/assets/check-icon.svg'
 
 interface Props {
@@ -21,22 +25,22 @@ const LIST = [
   {
     label: 'Terlama',
     value: 'terlama',
-    icon: TerbaruIcon
+    icon: TerlamaIcon
   },
   {
     label: 'A-Z',
     value: 'az',
-    icon: TerbaruIcon
+    icon: AZIcon
   },
   {
     label: 'Z-A',
     value: 'za',
-    icon: TerbaruIcon
+    icon: ZAIcon
   },
   {
     label: 'Belum Selesai',
     value: 'bs',
-    icon: TerbaruIcon
+    icon: BSIcon
   },
 ]
 
