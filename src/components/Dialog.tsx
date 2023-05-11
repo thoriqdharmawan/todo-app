@@ -27,6 +27,7 @@ export default (props: Props) => {
       sx={{ borderRadius: 12 }}
       TransitionComponent={Transition}
       maxWidth="lg"
+      scroll='body'
     >
       {children}
     </Dialog>
