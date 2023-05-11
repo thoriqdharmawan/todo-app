@@ -81,7 +81,7 @@ export default ({ open, sort, onClose, onSort, id, anchorEl, children }: Props) 
           >
             <Box display="flex">
               <img src={icon} alt="icon" />
-              <Typography sx={{ fontSize: '16px', fonrWeight: '600', marginLeft: '14px' }}>
+              <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
                 {label}
               </Typography>
             </Box>
