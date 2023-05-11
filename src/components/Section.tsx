@@ -97,7 +97,7 @@ export default (props: Props) => {
               id="todo-sort-button"
               data-cy="todo-sort-button"
               onClick={handleOpenSort}
-              sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
+              sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5', position: 'relative', zIndex: 1 }}
             >
               <img src={SortIcon} alt="sort" />
             </IconButton>
