@@ -96,7 +96,7 @@ export default () => {
       onEditTitle={handleEditTitle}
     >
       {data?.todo_items?.length === 0 && (
-        <EmptyState src={EmptyStateTodo} />
+        <EmptyState src={EmptyStateTodo} onAdd={() => handleOpen({ type: Types.ADD })} />
       )}
 
       {data?.todo_items?.map((res: Todo) => (

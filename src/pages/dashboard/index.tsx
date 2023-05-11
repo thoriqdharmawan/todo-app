@@ -59,7 +59,7 @@ export default () => {
 
   return (
     <Section title="Activity" onAdd={handleAddActivity}>
-      {data?.data?.length === 0 && (<EmptyState src={EmptyStateActivity} />)}
+      {data?.data?.length === 0 && (<EmptyState src={EmptyStateActivity} onAdd={handleAddActivity} />)}
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
         {data?.data?.map((res: any) => (
           <Card
