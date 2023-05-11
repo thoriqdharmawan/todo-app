@@ -15,7 +15,8 @@ interface Props {
   onBack?: () => void;
   onSort?: (value: string) => void;
   onEditTitle?: (value: string | undefined) => void;
-  children: React.ReactNode
+  children: React.ReactNode;
+  cytitle: string
 }
 
 export default (props: Props) => {
@@ -67,7 +68,13 @@ export default (props: Props) => {
               sx={{ fontWeight: '700', fontSize: '36px' }}
             />
           ) : (
-            <Typography variant="h2" component="h2" fontWeight={700} fontSize={36}>
+            <Typography
+              variant="h2"
+              component="h2"
+              fontWeight={700}
+              fontSize={36}
+              data-cy={title}
+            >
               {value || title}
             </Typography>
           )}

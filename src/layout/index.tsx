@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 export default () => {
   return (
     <Box sx={{ backgroundColor: '#E5E5E51F', minHeight: '100vh'}}>
-      <AppBar position="static" sx={(theme) => ({ boxShadow: theme.bs[1], marginBottom: '43px' })}>
+      <AppBar data-cy="header-background" position="static" sx={(theme) => ({ boxShadow: theme.bs[1], marginBottom: '43px' })}>
         <Container maxWidth="md" disableGutters>
           <Typography
             variant="h1"
@@ -16,6 +16,7 @@ export default () => {
             pt="39px"
             pb="30px"
             sx={{ fontSize: 24, fontWeight: 700, lineHeight: "36px" }}
+            data-cy="header-title"
           >
             TO DO LIST APP
           </Typography>

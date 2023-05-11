@@ -104,6 +104,7 @@ export default () => {
       onEditTitle={handleEditTitle}
       onSort={setSort}
       sort={sort}
+      cytitle="todo-title"
     >
       {data?.todo_items?.length === 0 && (
         <EmptyState src={EmptyStateTodo} onAdd={() => handleOpen({ type: Types.ADD })} />
