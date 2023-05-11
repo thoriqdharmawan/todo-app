@@ -31,14 +31,15 @@ export default (props: Props) => {
       })}
     >
       <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Checkbox
-          checked={checked}
-          onChange={(e) => {
-            onChageStatus(e.target.checked)
-            setChecked(e.target.checked)
-          }}
-          data-cy="todo-item-checkbox"
-        />
+        <span data-cy="todo-item-checkbox">
+          <Checkbox
+            checked={checked}
+            onChange={(e) => {
+              onChageStatus(e.target.checked)
+              setChecked(e.target.checked)
+            }}
+          />
+        </span>
         <Box
           sx={{
             width: '9px',

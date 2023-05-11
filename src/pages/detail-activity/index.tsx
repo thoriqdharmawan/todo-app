@@ -109,7 +109,6 @@ export default () => {
       cyback="todo-back-button"
       cybutton="todo-add-button"
       cyeditbutton="todo-title-edit-button"
-      cysortbutton="todo-sort-button"
     >
       {data?.todo_items?.length === 0 && (
         <EmptyState

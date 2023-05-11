@@ -20,11 +20,10 @@ interface Props {
   cybutton?: string
   cyback?: string
   cyeditbutton?: string
-  cysortbutton?: string
 }
 
 export default (props: Props) => {
-  const { title, sort, onAdd, onBack, onEditTitle, onSort, children, cybutton, cytitle, cyback, cyeditbutton, cysortbutton } = props
+  const { title, sort, onAdd, onBack, onEditTitle, onSort, children, cybutton, cytitle, cyback, cyeditbutton } = props
   const [edit, setEdit] = useState<boolean>(false)
   const [value, setValue] = useState<string | undefined>('')
   const [anchorSort, setAnchorSort] = useState<null | HTMLElement>(null)
@@ -101,12 +100,12 @@ export default (props: Props) => {
               onClose={() => setAnchorSort(null)}
               anchorEl={anchorSort}
               onSort={onSort}
-              data-cy={cysortbutton}
             >
               <IconButton
                 id="sort"
                 sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
                 onClick={handleOpenSort}
+                data-cy="todo-sort-button"
               >
                 <img src={SortIcon} alt="sort" />
               </IconButton>

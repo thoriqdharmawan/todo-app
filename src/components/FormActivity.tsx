@@ -103,14 +103,14 @@ const Content = (props: Content) => {
           renderValue={(selected) => {
             if (!values.priority) {
               return (
-                <Typography data-cy={cyitemdropwdown} sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
+                <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
                   Pilih priority
                 </Typography>
               )
             }
 
             return (
-              <Box data-cy={cyitemdropwdown} display="flex" alignItems="center">
+              <Box display="flex" alignItems="center">
                 <Dot color={PRIORITY_COLOR[selected]} />
                 <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
                   {PRIORITY_LABEL[selected]}
@@ -121,7 +121,7 @@ const Content = (props: Content) => {
           }}
         >
           {PRIORITY.map(({ value, label, color }) => (
-            <MenuItem value={value} key={value}>
+            <MenuItem data-cy={cyitemdropwdown} value={value} key={value}>
               <Dot color={color} />
               <Typography>{label}</Typography>
             </MenuItem>
