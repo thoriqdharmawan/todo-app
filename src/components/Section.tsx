@@ -16,11 +16,15 @@ interface Props {
   onSort?: (value: string) => void;
   onEditTitle?: (value: string | undefined) => void;
   children: React.ReactNode;
-  cytitle: string
+  cytitle?: string
+  cybutton?: string
+  cyback?: string
+  cyeditbutton?: string
+  cysortbutton?: string
 }
 
 export default (props: Props) => {
-  const { title, sort, onAdd, onBack, onEditTitle, onSort, children } = props
+  const { title, sort, onAdd, onBack, onEditTitle, onSort, children, cybutton, cytitle, cyback, cyeditbutton, cysortbutton } = props
   const [edit, setEdit] = useState<boolean>(false)
   const [value, setValue] = useState<string | undefined>('')
   const [anchorSort, setAnchorSort] = useState<null | HTMLElement>(null)
@@ -54,7 +58,7 @@ export default (props: Props) => {
       <Box mb="49px" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box display="flex" alignItems="center" gap="19px">
           {!!onBack && (
-            <IconButton onClick={handleBack}>
+            <IconButton data-cy={cyback} onClick={handleBack}>
               <img src={BackIcon} alt="back" />
             </IconButton>
           )}
@@ -73,7 +77,7 @@ export default (props: Props) => {
               component="h2"
               fontWeight={700}
               fontSize={36}
-              data-cy={title}
+              data-cy={cytitle}
             >
               {value || title}
             </Typography>
@@ -81,7 +85,7 @@ export default (props: Props) => {
 
 
           {!!onEditTitle && (
-            <IconButton onClick={handleOpenEdit}>
+            <IconButton onClick={handleOpenEdit} data-cy={cyeditbutton}>
               <img src={EditIcon} alt="back" width="24px" height="24px" />
             </IconButton>
           )}
@@ -96,6 +100,7 @@ export default (props: Props) => {
               onClose={() => setAnchorSort(null)}
               anchorEl={anchorSort}
               onSort={onSort}
+              data-cy={cysortbutton}
             >
               <IconButton
                 id="sort"
@@ -114,6 +119,7 @@ export default (props: Props) => {
               startIcon={<img src={AddIcon} alt="add" />}
               sx={{ borderRadius: "45px", fontWeight: 600 }}
               onClick={onAdd}
+              data-cy={cybutton}
             >
               Tambah
             </Button>

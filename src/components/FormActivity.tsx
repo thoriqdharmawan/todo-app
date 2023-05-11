@@ -9,17 +9,28 @@ import CloseIcon from '@/assets/close-icon.svg'
 import Dialog from "./Dialog"
 import Dot from "./Dot";
 
+interface Cypres {
+  cylabelname?: string;
+  cylabelpriority?: string;
+  cyformname?: string;
+  cyformpriority?: string;
+  cyitemdropwdown?: string;
+}
+
 interface ValuesState {
   name: string;
   priority: string;
 }
 
-interface Props extends Partial<ValuesState> {
+interface Props extends Cypres, Partial<ValuesState> {
   open: boolean;
   type: Types;
   onClose: () => void;
   onSubmit: (values: ValuesState) => void;
   groupId: string | number | undefined;
+  cytitle?: string;
+  cyclose?: string;
+  cysave?: string;
 }
 
 interface Wrap {
@@ -28,7 +39,7 @@ interface Wrap {
   padding?: string;
 }
 
-interface Content {
+interface Content extends Cypres {
   onChange: (value: string, type: string) => void;
   values: ValuesState;
 }
@@ -52,7 +63,7 @@ const Wrap = (props: Wrap) => {
 }
 
 const Content = (props: Content) => {
-  const { onChange, values } = props
+  const { onChange, values, cylabelname, cylabelpriority, cyformname, cyformpriority, cyitemdropwdown } = props
 
   return (
     <Wrap padding="36px 30px" direction="column">
@@ -60,6 +71,7 @@ const Content = (props: Content) => {
         <Typography
           sx={{ fontSuze: '12px', fontWeight: '600' }}
           mb="9px"
+          data-cy={cylabelname}
         >
           NAMA LIST ITEM
         </Typography>
@@ -70,12 +82,14 @@ const Content = (props: Content) => {
           size="medium"
           value={values.name}
           onChange={(e) => onChange(e.target.value, 'name')}
+          data-cy={cyformname}
         />
       </Box>
       <Box width="100%" mb="26px">
         <Typography
           sx={{ fontSuze: '12px', fontWeight: '600' }}
           mb="9px"
+          data-cy={cylabelpriority}
         >
           Priority
         </Typography>
@@ -85,17 +99,18 @@ const Content = (props: Content) => {
           placeholder="Pilih priority"
           sx={{ width: '205px', backgroundColor: values.priority ? 'unset' : '#E5E5E5' }}
           onChange={(e) => onChange(e.target.value, 'priority')}
+          data-cy={cyformpriority}
           renderValue={(selected) => {
             if (!values.priority) {
               return (
-                <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
+                <Typography data-cy={cyitemdropwdown} sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
                   Pilih priority
                 </Typography>
               )
             }
 
             return (
-              <Box display="flex" alignItems="center">
+              <Box data-cy={cyitemdropwdown} display="flex" alignItems="center">
                 <Dot color={PRIORITY_COLOR[selected]} />
                 <Typography sx={{ fontSize: '16px', fontWeight: '400', color: '#111111' }}>
                   {PRIORITY_LABEL[selected]}
@@ -120,6 +135,7 @@ const Content = (props: Content) => {
 
 export default (props: Props) => {
   const { open, type, onClose, onSubmit, priority, name } = props
+  const { cylabelname, cylabelpriority, cyformname, cyformpriority, cytitle, cyclose, cysave } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -156,17 +172,25 @@ export default (props: Props) => {
     <Dialog open={open}>
       <Box sx={{ width: '830px' }}>
         <Wrap>
-          <Typography sx={{ fontSize: '18px', fontWeight: '600' }}>
+          <Typography data-cy={cytitle} sx={{ fontSize: '18px', fontWeight: '600' }}>
             {type === Types.ADD ? 'Tambah List Item' : 'Ubah List Item'}
           </Typography>
-          <IconButton onClick={handleClose}>
+          <IconButton data-cy={cyclose} onClick={handleClose}>
             <img src={CloseIcon} alt="close" />
           </IconButton>
         </Wrap>
 
         <Divider sx={{ border: '1px solid #E5E5E5' }} />
 
-        <Content values={values} onChange={handleChange} />
+        <Content
+          values={values}
+          onChange={handleChange}
+          cylabelname={cylabelname}
+          cylabelpriority={cylabelpriority}
+          cyformname={cyformname}
+          cyformpriority={cyformpriority}
+
+        />
         <Divider sx={{ border: '1px solid #E5E5E5' }} />
 
         <Wrap padding="16px 40px">
@@ -175,6 +199,7 @@ export default (props: Props) => {
             onClick={handleSubmit}
             sx={{ display: 'block', marginLeft: 'auto' }}
             disabled={!values.name || !values.priority}
+            data-cy={cysave}
           >
             Simpan
           </Button>

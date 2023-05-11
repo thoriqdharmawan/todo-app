@@ -105,9 +105,17 @@ export default () => {
       onSort={setSort}
       sort={sort}
       cytitle="todo-title"
+      cyback="todo-back-button"
+      cybutton="todo-add-button"
+      cyeditbutton="todo-title-edit-button"
+      cysortbutton="todo-sort-button"
     >
       {data?.todo_items?.length === 0 && (
-        <EmptyState src={EmptyStateTodo} onAdd={() => handleOpen({ type: Types.ADD })} />
+        <EmptyState
+          src={EmptyStateTodo}
+          onAdd={() => handleOpen({ type: Types.ADD })}
+          cyempty="todo-empty-state"
+        />
       )}
 
       {sortItem(data?.todo_items || [], sort)?.map((res: Todo) => (
@@ -138,6 +146,14 @@ export default () => {
         groupId={id}
         priority={dialog.priority}
         name={dialog.title}
+        cytitle={'modal-add-title'}
+        cyclose={'modal-add-close-button'}
+        cylabelname={'modal-add-name-title'}
+        cylabelpriority={'modal-add-priority-title'}
+        cyformname={'modal-add-name-input'}
+        cyformpriority={'modal-add-priority-dropdown'}
+        cyitemdropwdown={'modal-add-priority-item'}
+        cysave={'modal-add-save-button'}
       />
     </Section>
   )

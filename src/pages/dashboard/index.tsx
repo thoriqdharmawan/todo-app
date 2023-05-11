@@ -58,8 +58,19 @@ export default () => {
   }
 
   return (
-    <Section title="Activity" onAdd={handleAddActivity} cytitle="activity-title">
-      {data?.data?.length === 0 && (<EmptyState src={EmptyStateActivity} onAdd={handleAddActivity} />)}
+    <Section
+      title="Activity"
+      onAdd={handleAddActivity}
+      cytitle="activity-title"
+      cybutton="activity-add-button"
+    >
+      {data?.data?.length === 0 && (
+        <EmptyState
+          src={EmptyStateActivity}
+          onAdd={handleAddActivity}
+          cyempty="activity-empty-state"
+        />
+      )}
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
         {data?.data?.map((res: any) => (
           <Card

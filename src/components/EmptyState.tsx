@@ -1,6 +1,6 @@
 import { Box } from "@mui/material"
 
-export default ({ src, onAdd }: { src: string; onAdd: () => void }) => {
+export default ({ src, onAdd, cyempty }: { src: string; onAdd: () => void, cyempty?: string }) => {
   return (
     <Box
       onClick={onAdd}
@@ -11,6 +11,7 @@ export default ({ src, onAdd }: { src: string; onAdd: () => void }) => {
         justifyContent: 'center',
         cursor: 'pointer',
       }}
+      data-cy={cyempty}
     >
       <img src={src} alt="empty" />
     </Box>

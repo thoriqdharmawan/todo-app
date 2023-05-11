@@ -2,7 +2,6 @@ import { Box, Button, Typography } from "@mui/material"
 
 import AlertIcon from '@/assets/alert-icon.svg'
 import Dialog from "./Dialog";
-
 interface Props {
   open: boolean;
   title: string | undefined;
@@ -25,6 +24,7 @@ export default (props: Props) => {
           flexDirection: 'column',
           alignItems: 'center',
         })}
+        data-cy="todo-modal-delete"
       >
         <img src={AlertIcon} alt="alert-icon" width="84px" />
         <Typography
@@ -34,6 +34,7 @@ export default (props: Props) => {
             textAlign: 'center',
             margin: '34px 0px 46px'
           }}
+          data-cy="modal-delete-title"
         >
           Apakah anda yakin menghapus {type} <Typography component="span" sx={{ fontWeight: 700 }}>“{title}”?</Typography>
         </Typography>
@@ -43,6 +44,7 @@ export default (props: Props) => {
             color="secondary"
             onClick={onCancel}
             sx={{ padding: '13.5px 45px' }}
+            data-cy="modal-delete-cancel-button"
           >
             Batal
           </Button>
@@ -51,6 +53,7 @@ export default (props: Props) => {
             onClick={onDelete}
             color="error"
             sx={{ padding: '13.5px 45px' }}
+            data-cy="modal-delete-confirm-button"
           >
             Hapus
           </Button>

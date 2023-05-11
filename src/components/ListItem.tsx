@@ -19,6 +19,7 @@ export default (props: Props) => {
 
   return (
     <Box
+      data-cy="todo-item"
       sx={(theme) => ({
         display: 'flex',
         justifyContent: 'space-between',
@@ -36,6 +37,7 @@ export default (props: Props) => {
             onChageStatus(e.target.checked)
             setChecked(e.target.checked)
           }}
+          data-cy="todo-item-checkbox"
         />
         <Box
           sx={{
@@ -45,6 +47,7 @@ export default (props: Props) => {
             margin: '0px 16px',
             borderRadius: '50%'
           }}
+          data-cy="todo-item-priority-indicator"
         />
         <Typography
           sx={{
@@ -52,14 +55,15 @@ export default (props: Props) => {
             fontSize: '18px',
             textDecoration: checked ? 'line-through' : 'none'
           }}
+          data-cy="todo-item-title"
         >
           {title}
         </Typography>
-        <IconButton sx={{ marginLeft: '16px' }} onClick={onEdit}>
+        <IconButton data-cy="todo-item-edit-button" sx={{ marginLeft: '16px' }} onClick={onEdit}>
           <img src={EditIcon} alt="edit" />
         </IconButton>
       </Box>
-      <IconButton onClick={onDelete}>
+      <IconButton data-cy="todo-item-delete-button" onClick={onDelete}>
         <img src={DeleteIcon} alt="delete" />
       </IconButton>
     </Box>
