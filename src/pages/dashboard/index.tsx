@@ -89,6 +89,7 @@ export default () => {
         title={dialog.title}
         onCancel={handleClose}
         onDelete={handleDelete}
+        cymodal="modal-delete"
       />
     </Section>
   )

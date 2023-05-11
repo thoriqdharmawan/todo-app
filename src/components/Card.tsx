@@ -1,10 +1,12 @@
 import React from 'react';
 
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+import { Box, Typography, IconButton } from '@mui/material';
+
+// import Card from '@mui/material/Card';
+// import CardActions from '@mui/material/CardActions';
+// import CardContent from '@mui/material/CardContent';
+// import Typography from '@mui/material/Typography';
+// import IconButton from '@mui/material/IconButton';
 
 import DeleteIcon from '@/assets/delete-icon.svg'
 
@@ -24,7 +26,7 @@ export default (props: Props) => {
   }
 
   return (
-    <Card
+    <Box
       onClick={onClick}
       sx={(theme) => ({
         maxWidth: 235,
@@ -40,18 +42,16 @@ export default (props: Props) => {
       })}
       data-cy="activity-item"
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Typography fontWeight={700} fontSize={18} data-cy="activity-item-title">{title}</Typography>
-      </CardContent>
+      <Typography fontWeight={700} fontSize={18} data-cy="activity-item-title">{title}</Typography>
 
-      <CardActions sx={{ padding: 0, display: 'flex', justifyContent: 'space-between' }}>
-        <Typography color="#888888" fontSize="12px" data-cy="activity-item-date">
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography color="#888888" fontSize="14px" data-cy="activity-item-date">
           {date}
         </Typography>
         <IconButton onClick={handleDelete} size="medium" color="primary" data-cy="activity-item-delete-button">
           <img src={DeleteIcon} alt="delete" />
         </IconButton>
-      </CardActions>
-    </Card>
+      </Box>
+    </Box>
   )
 }

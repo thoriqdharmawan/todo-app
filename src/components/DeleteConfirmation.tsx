@@ -8,10 +8,11 @@ interface Props {
   type: string;
   onDelete: () => void;
   onCancel: () => void;
+  cymodal?: string;
 }
 
 export default (props: Props) => {
-  const { open, title, type, onDelete, onCancel } = props
+  const { open, title, type, onDelete, onCancel, cymodal } = props
 
   return (
     <Dialog open={open}>
@@ -24,7 +25,7 @@ export default (props: Props) => {
           flexDirection: 'column',
           alignItems: 'center',
         })}
-        data-cy="todo-modal-delete"
+        data-cy={cymodal}
       >
         <img src={AlertIcon} alt="alert-icon" width="84px" />
         <Typography

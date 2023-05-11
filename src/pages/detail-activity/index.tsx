@@ -136,6 +136,7 @@ export default () => {
         type="List Item"
         onCancel={handleClose}
         onDelete={handleDelete}
+        cymodal="todo-modal-delete"
       />
 
       <FormActivity
