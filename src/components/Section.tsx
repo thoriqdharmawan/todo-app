@@ -54,7 +54,7 @@ export default (props: Props) => {
 
   return (
     <section>
-      <Box mb="49px" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "49px" }}>
         <Box display="flex" alignItems="center" gap="19px">
           {!!onBack && (
             <IconButton data-cy={cyback} onClick={handleBack}>
@@ -91,7 +91,7 @@ export default (props: Props) => {
           )}
         </Box>
 
-        <div style={{display: 'flex'}}>
+        <div style={{ display: 'flex' }}>
           {!!onSort && (
             <div onClick={handleOpenSort} data-cy="todo-sort-button">
               <IconButton
@@ -114,7 +114,7 @@ export default (props: Props) => {
             </Button>
           </span>
         </div>
-      </Box>
+      </div>
 
       {children}
 

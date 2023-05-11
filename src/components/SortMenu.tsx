@@ -71,33 +71,30 @@ export default ({ open, sort, onClose, onSort, id, anchorEl }: Props) => {
       }}
     >
       {LIST.map(({ label, icon, value }, idx) => (
-        <MenuItem
-          key={idx}
+        <div
           onClick={() => handleSort(value)}
+          data-cy="sort-selection"
+          key={idx}
         >
-          <Box
+          <MenuItem
             sx={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
               width: '100%'
             }}
-            data-cy="sort-selection"
           >
             <Box display="flex">
-              <img src={icon} alt="icon" data-cy="sort-selection-icon" />
-              <Typography
-                sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}
-                data-cy="sort-selection-title"
-              >
+              <img src={icon} alt="icon" />
+              <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
                 {label}
               </Typography>
             </Box>
             {sort === value && (
-              <img src={CheckIcon} alt="icon" data-cy="sort-selection-selected" />
+              <img src={CheckIcon} alt="icon" />
             )}
-          </Box>
-        </MenuItem>
+          </MenuItem>
+        </div>
       ))}
     </Menu>
   )
