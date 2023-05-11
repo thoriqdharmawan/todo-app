@@ -91,23 +91,23 @@ export default (props: Props) => {
           )}
         </Box>
 
-        <div style={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', gap: '18px', alignItems: 'center' }}>
           {!!onSort && (
             <Box
               id="todo-sort-button"
               data-cy="todo-sort-button"
               onClick={handleOpenSort}
-              sx={{ 
-                width: "54px", 
-                height: '54px', 
-                border: '1px solid #E5E5E5', 
-                display: 'flex',
-                justifyContent: 'center',
+              sx={{
+                width: "54px",
+                height: '54px',
+                border: '1px solid #E5E5E5',
                 borderRadius: '50%',
+                display: 'flex',
                 alignItems: 'center',
+                justifyContent: 'center',
                 cursor: 'pointer',
                 position: 'relative',
-                zIndex: 1 ,
+                zIndex: 999,
               }}
             >
               <img src={SortIcon} alt="sort" />
@@ -119,12 +119,12 @@ export default (props: Props) => {
               variant="contained"
               disableElevation
               startIcon={<img src={AddIcon} alt="add" />}
-              sx={{ borderRadius: "45px", fontWeight: 600, marginLeft: '18px' }}
+              sx={{ borderRadius: "45px", fontWeight: 600 }}
             >
               Tambah
             </Button>
           </span>
-        </div>
+        </Box>
       </Box>
 
       {children}
