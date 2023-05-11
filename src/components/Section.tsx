@@ -91,16 +91,16 @@ export default (props: Props) => {
           )}
         </Box>
 
-        <div>
+        <div style={{display: 'flex'}}>
           {!!onSort && (
-            <span onClick={handleOpenSort} data-cy="todo-sort-button">
+            <div onClick={handleOpenSort} data-cy="todo-sort-button">
               <IconButton
                 id="sort"
                 sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
               >
                 <img src={SortIcon} alt="sort" />
               </IconButton>
-            </span>
+            </div>
           )}
 
           <span data-cy={cybutton} onClick={onAdd}>
