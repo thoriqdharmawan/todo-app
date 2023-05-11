@@ -10,6 +10,9 @@ import ListItem from "@/components/ListItem"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 import FormActivity from "@/components/FormActivity";
+import EmptyState from "@/components/EmptyState";
+
+import EmptyStateTodo from '@/assets/empty-state-todo.svg'
 
 interface OpenAciton {
   type: Types,
@@ -30,13 +33,6 @@ interface Todo {
   title: string;
 }
 
-interface DataState {
-  title: string;
-  created_at: string;
-  id: number | undefined;
-  todo_items: Todo[]
-}
-
 const DEFAULT_STATE_DIALOG: DialogState = {
   open: false,
   id: undefined,
@@ -47,19 +43,9 @@ const DEFAULT_STATE_DIALOG: DialogState = {
 
 export default () => {
   const { id } = useParams();
-  const DETAIL_ACTIVITY = `/activity-groups/${id}`
-
-  const [detailActivity, setDetailActivity] = useState<DataState>({
-    title: '',
-    created_at: '',
-    id: undefined,
-    todo_items: []
-  })
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
 
-  const { error, mutate } = useSWR(DETAIL_ACTIVITY, getter, {
-    onSuccess: (data) => setDetailActivity(data)
-  })
+  const { data, error, mutate } = useSWR(`/activity-groups/${id}`, getter)
 
   const { trigger: addItem } = useSWRMutation('/todo-items', addListItem)
   const { trigger: updateItem } = useSWRMutation('/todo-items', updateListItem)
@@ -80,7 +66,7 @@ export default () => {
   const handleDelete = async () => {
     await deleteListItem(dialog.id)
     handleClose()
-    await mutate(DETAIL_ACTIVITY)
+    await mutate()
   }
 
   const handleSubmit = async (values: {
@@ -93,12 +79,16 @@ export default () => {
     } else {
       await updateItem({ ...values, id: dialog.id })
     }
-    await mutate(DETAIL_ACTIVITY)
+    await mutate()
   }
 
   return (
-    <Section title={detailActivity.title || 'New Activity'} onAdd={() => handleOpen({ type: Types.ADD })}>
-      {detailActivity?.todo_items?.map((res: any) => (
+    <Section title={data?.title} onAdd={() => handleOpen({ type: Types.ADD })}>
+      {data?.todo_items?.length === 0 && (
+        <EmptyState src={EmptyStateTodo} />
+      )}
+
+      {data?.todo_items?.map((res: Todo) => (
         <ListItem
           key={res.id}
           title={res.title}
