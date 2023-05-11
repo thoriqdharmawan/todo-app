@@ -93,14 +93,14 @@ export default (props: Props) => {
 
         <div style={{ display: 'flex' }}>
           {!!onSort && (
-            <div onClick={handleOpenSort} data-cy="todo-sort-button">
-              <IconButton
-                id="sort"
-                sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
-              >
-                <img src={SortIcon} alt="sort" />
-              </IconButton>
-            </div>
+            <IconButton
+              id="todo-sort-button"
+              data-cy="todo-sort-button"
+              onClick={handleOpenSort}
+              sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
+            >
+              <img src={SortIcon} alt="sort" />
+            </IconButton>
           )}
 
           <span data-cy={cybutton} onClick={onAdd}>
@@ -120,7 +120,7 @@ export default (props: Props) => {
 
       {!!onSort && (
         <SortMenu
-          id="sort"
+          id="todo-sort-button"
           sort={sort}
           open={Boolean(anchorSort)}
           onClose={() => setAnchorSort(null)}
