@@ -87,8 +87,9 @@ export default () => {
     await mutate()
   }
 
-  const handleEditTitle = (title: string = '') => {
-    updateTitle({ title, id })
+  const handleEditTitle = async (title: string = '') => {
+    await updateTitle({ title, id })
+    await mutate()
   }
 
   const handleChangeStatus = async (checked: boolean, id: number) => {

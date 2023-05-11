@@ -135,7 +135,7 @@ const Content = (props: Content) => {
 
 export default (props: Props) => {
   const { open, type, onClose, onSubmit, priority, name } = props
-  const { cylabelname, cylabelpriority, cyformname, cyformpriority, cytitle, cyclose, cysave } = props
+  const { cylabelname, cylabelpriority, cyformname, cyformpriority, cytitle, cyclose, cysave, cyitemdropwdown } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -157,10 +157,8 @@ export default (props: Props) => {
   };
 
   const handleSubmit = () => {
-    if (values.name && values.priority) {
-      onSubmit(values)
-      handleReset()
-    }
+    onSubmit(values)
+    handleReset()
   }
 
   const handleClose = () => {
@@ -170,7 +168,7 @@ export default (props: Props) => {
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <Box sx={{ width: '830px' }}>
+      <Box sx={{ width: '830px' }} data-cy="modal-add">
         <Wrap>
           <Typography data-cy={cytitle} sx={{ fontSize: '18px', fontWeight: '600' }}>
             {type === Types.ADD ? 'Tambah List Item' : 'Ubah List Item'}
@@ -189,6 +187,7 @@ export default (props: Props) => {
           cylabelpriority={cylabelpriority}
           cyformname={cyformname}
           cyformpriority={cyformpriority}
+          cyitemdropwdown={cyitemdropwdown}
 
         />
         <Divider sx={{ border: '1px solid #E5E5E5' }} />

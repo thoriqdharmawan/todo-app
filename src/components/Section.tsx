@@ -112,18 +112,16 @@ export default (props: Props) => {
             </SortMenu>
           )}
 
-          {!!onAdd && (
+          <span data-cy={cybutton} onClick={onAdd}>
             <Button
               variant="contained"
               disableElevation
               startIcon={<img src={AddIcon} alt="add" />}
               sx={{ borderRadius: "45px", fontWeight: 600 }}
-              onClick={onAdd}
-              data-cy={cybutton}
             >
               Tambah
             </Button>
-          )}
+          </span>
         </Box>
       </Box>
 
