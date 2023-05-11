@@ -1,4 +1,4 @@
-import { Box, MenuItem, Popover, Typography } from "@mui/material"
+import { Box, MenuItem, MenuList, Popover, Typography } from "@mui/material"
 
 import TerbaruIcon from '@/assets/terbaru-icon.svg'
 import TerlamaIcon from '@/assets/terlama-icon.svg'
@@ -73,29 +73,32 @@ export default ({ open, sort, onClose, onSort, id, anchorEl }: Props) => {
         })
       }}
     >
-      {LIST.map(({ label, icon, value }, idx) => (
-        <MenuItem
-          onClick={() => handleSort(value)}
-          data-cy="sort-selection"
-          key={idx}
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            width: '100%'
-          }}
-        >
-          <Box display="flex">
-            <img src={icon} alt="icon" />
-            <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
-              {label}
-            </Typography>
-          </Box>
-          {sort === value && (
-            <img src={CheckIcon} alt="icon" />
-          )}
-        </MenuItem>
-      ))}
+      <MenuList>
+        {LIST.map(({ label, icon, value }, idx) => (
+          <MenuItem
+            onClick={() => handleSort(value)}
+            data-cy="sort-selection"
+            key={idx}
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%'
+            }}
+          >
+            <Box display="flex">
+              <img src={icon} alt="icon" />
+              <Typography sx={{ fontSize: '16px', fontWeight: '600', marginLeft: '14px' }}>
+                {label}
+              </Typography>
+            </Box>
+            {sort === value && (
+              <img src={CheckIcon} alt="icon" />
+            )}
+          </MenuItem>
+        ))}
+      </MenuList>
+
     </Popover>
   )
 }
