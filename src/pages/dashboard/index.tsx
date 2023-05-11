@@ -14,6 +14,7 @@ import DeleteConfirmation from "@/components/DeleteConfirmation"
 
 import EmptyStateActivity from '@/assets/empty-state-activity.svg'
 import EmptyState from "@/components/EmptyState"
+import DeleteInformation from "@/components/DeleteInformation"
 
 interface DialogState {
   open: boolean;
@@ -32,6 +33,7 @@ const LIST_ACTIVITY = `/activity-groups?email=${GLOBAL_EMAIL}`
 export default () => {
   const navigate = useNavigate();
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
+  const [openInformation, setOpenInformation] = useState<boolean>(false)
 
   const { error, mutate, data } = useSWR(LIST_ACTIVITY, getter)
 
@@ -54,6 +56,7 @@ export default () => {
   const handleDelete = async () => {
     handleClose()
     await deleteAct(dialog.id)
+    setOpenInformation(true)
     await mutate()
   }
 
@@ -90,6 +93,11 @@ export default () => {
         onCancel={handleClose}
         onDelete={handleDelete}
         cymodal="modal-delete"
+      />
+
+      <DeleteInformation
+        open={openInformation}
+        onClose={() => setOpenInformation(false)}
       />
     </Section>
   )

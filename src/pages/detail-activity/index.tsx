@@ -14,6 +14,7 @@ import FormActivity from "@/components/FormActivity";
 import EmptyState from "@/components/EmptyState";
 
 import EmptyStateTodo from '@/assets/empty-state-todo.svg'
+import DeleteInformation from "@/components/DeleteInformation";
 
 interface OpenAciton {
   type: Types,
@@ -46,6 +47,7 @@ export default () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
+  const [openInformation, setOpenInformation] = useState<boolean>(false)
   const [sort, setSort] = useState<string | undefined>('terbaru')
 
   const { data, error, mutate } = useSWR(`/activity-groups/${id}`, getter)
@@ -71,6 +73,7 @@ export default () => {
   const handleDelete = async () => {
     await deleteListItem(dialog.id)
     handleClose()
+    setOpenInformation(true)
     await mutate()
   }
 
@@ -136,7 +139,7 @@ export default () => {
         type="List Item"
         onCancel={handleClose}
         onDelete={handleDelete}
-        cymodal="todo-modal-delete"
+        cymodal="modal-delete"
       />
 
       <FormActivity
@@ -156,6 +159,12 @@ export default () => {
         cyitemdropwdown={'modal-add-priority-item'}
         cysave={'modal-add-save-button'}
       />
+
+      <DeleteInformation
+        open={openInformation}
+        onClose={() => setOpenInformation(false)}
+      />
+
     </Section>
   )
 }
