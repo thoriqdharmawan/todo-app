@@ -2,12 +2,6 @@ import React from 'react';
 
 import { Box, Typography, IconButton } from '@mui/material';
 
-// import Card from '@mui/material/Card';
-// import CardActions from '@mui/material/CardActions';
-// import CardContent from '@mui/material/CardContent';
-// import Typography from '@mui/material/Typography';
-// import IconButton from '@mui/material/IconButton';
-
 import DeleteIcon from '@/assets/delete-icon.svg'
 
 interface Props {

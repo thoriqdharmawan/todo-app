@@ -169,7 +169,7 @@ export default (props: Props) => {
   }
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={handleClose}>
       <Box sx={{ width: '830px' }}>
         <Wrap>
           <Typography data-cy={cytitle} sx={{ fontSize: '18px', fontWeight: '600' }}>

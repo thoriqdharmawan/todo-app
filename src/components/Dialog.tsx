@@ -6,6 +6,7 @@ import { TransitionProps } from '@mui/material/transitions';
 interface Props {
   open: boolean;
   children: React.ReactNode;
+  onClose?: () => void;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -19,11 +20,12 @@ const Transition = React.forwardRef(function Transition(
 
 
 export default (props: Props) => {
-  const { open, children } = props;
+  const { open, children, onClose } = props;
 
   return (
     <Dialog
       open={open}
+      onClose={onClose}
       sx={{ borderRadius: 12 }}
       TransitionComponent={Transition}
       maxWidth="lg"

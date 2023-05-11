@@ -15,7 +15,7 @@ export default (props: Props) => {
   const { open, title, type, onDelete, onCancel, cymodal } = props
 
   return (
-    <Dialog open={open}>
+    <Dialog open={open} onClose={onCancel}>
       <Box
         sx={(theme) => ({
           padding: '50px',
@@ -40,24 +40,24 @@ export default (props: Props) => {
           Apakah anda yakin menghapus {type} <Typography component="span" sx={{ fontWeight: 700 }}>“{title}”?</Typography>
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', alignItems: 'center', width: '100%' }}>
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={onCancel}
-            sx={{ padding: '13.5px 45px' }}
-            data-cy="modal-delete-cancel-button"
-          >
-            Batal
-          </Button>
-          <Button
-            variant="contained"
-            onClick={onDelete}
-            color="error"
-            sx={{ padding: '13.5px 45px' }}
-            data-cy="modal-delete-confirm-button"
-          >
-            Hapus
-          </Button>
+          <span onClick={onCancel} data-cy="modal-delete-cancel-button">
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{ padding: '13.5px 45px' }}
+            >
+              Batal
+            </Button>
+          </span>
+          <span onClick={onDelete} data-cy="modal-delete-confirm-button">
+            <Button
+              variant="contained"
+              color="error"
+              sx={{ padding: '13.5px 45px' }}
+            >
+              Hapus
+            </Button>
+          </span>
         </Box>
       </Box>
     </Dialog>
