@@ -12,6 +12,9 @@ import Card from "@/components/Card"
 import Section from "@/components/Section"
 import DeleteConfirmation from "@/components/DeleteConfirmation"
 
+import EmptyStateActivity from '@/assets/empty-state-activity.svg'
+import EmptyState from "@/components/EmptyState"
+
 interface DialogState {
   open: boolean;
   title: string;
@@ -28,16 +31,9 @@ const LIST_ACTIVITY = `/activity-groups?email=${GLOBAL_EMAIL}`
 
 export default () => {
   const navigate = useNavigate();
-  const [listActivity, setListActivity] = useState([])
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
 
-  const handleClose = () => {
-    setDialog(DEFAULT_STATE_DIALOG)
-  }
-
-  const { error, mutate } = useSWR(LIST_ACTIVITY, getter, {
-    onSuccess: (data) => setListActivity(data?.data || [])
-  })
+  const { error, mutate, data } = useSWR(LIST_ACTIVITY, getter)
 
   const { trigger: addAct } = useSWRMutation('/activity-groups', addActivity)
   const { trigger: deleteAct } = useSWRMutation('/activity-groups', deleteActivity)
@@ -46,21 +42,28 @@ export default () => {
     throw new Error("error");
   }
 
+  const handleClose = () => {
+    setDialog(DEFAULT_STATE_DIALOG)
+  }
+
   const handleAddActivity = async () => {
     await addAct()
-    await mutate(LIST_ACTIVITY)
+    await mutate()
   }
 
   const handleDelete = async () => {
     handleClose()
     await deleteAct(dialog.id)
-    await mutate(LIST_ACTIVITY)
+    await mutate()
   }
 
   return (
     <Section title="Activity" onAdd={handleAddActivity}>
       <Stack direction="row" gap="26px 20px" flexWrap="wrap">
-        {listActivity?.map((res: any) => (
+        {data?.data?.length === 0 && (
+          <EmptyState src={EmptyStateActivity} />
+        )}
+        {data?.data?.map((res: any) => (
           <Card
             key={res.id}
             title={res.title}
