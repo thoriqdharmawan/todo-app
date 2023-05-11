@@ -197,7 +197,7 @@ export default (props: Props) => {
             onClick={handleSubmit}
             sx={{ display: 'block', marginLeft: 'auto' }}
             disabled={!values.name || !values.priority}
-            data-cy="'modal-add-save-button'"
+            data-cy="modal-add-save-button"
           >
             Simpan
           </Button>
