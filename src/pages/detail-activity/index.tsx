@@ -87,12 +87,12 @@ export default () => {
     name: string;
     priority: string;
   }) => {
+    handleClose()
     if (dialog.type === Types.ADD) {
       await addItem({ ...values, groupId: id })
     } else {
       await updateItem({ ...values, id: dialog.id })
     }
-    handleClose()
     await mutate(DETAIL_ACTIVITY)
   }
 
