@@ -107,8 +107,16 @@ export default (props: Props) => {
 
 
           {!!onEditTitle && (
-            <IconButton onClick={handleOpenEdit} data-cy={cyeditbutton}>
-              <img src={EditIcon} alt="back" width="24px" height="24px" />
+            <IconButton
+              onClick={handleOpenEdit}
+              data-cy={cyeditbutton}
+              sx={{
+                "& img": {
+                  width: "24px",
+                  height: "24px",
+                }
+              }}>
+              <img src={EditIcon} alt="back" />
             </IconButton>
           )}
         </Box>
@@ -139,9 +147,9 @@ export default (props: Props) => {
               variant="contained"
               disableElevation
               startIcon={<img src={AddIcon} alt="add" />}
-              sx={{ 
-                borderRadius: "45px", 
-                fontWeight: 600 
+              sx={{
+                borderRadius: "45px",
+                fontWeight: 600
               }}
             >
               Tambah

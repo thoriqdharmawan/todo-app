@@ -27,10 +27,13 @@ export default (props: Props) => {
           [theme.breakpoints.down("md")]: {
             width: '100%',
           },
+          "& img": {
+            width: "84px",
+          }
         })}
         data-cy={cymodal}
       >
-        <img src={AlertIcon} alt="alert-icon" width="84px" />
+        <img src={AlertIcon} alt="alert-icon" />
         <Typography
           sx={{
             fontSize: 18,
