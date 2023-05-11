@@ -78,6 +78,7 @@ export default (props: Props) => {
               fontWeight={700}
               fontSize={36}
               data-cy={cytitle}
+              onClick={!!onEditTitle ? handleOpenEdit : undefined}
             >
               {value || title}
             </Typography>
