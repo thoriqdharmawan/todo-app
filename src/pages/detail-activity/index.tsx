@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 import { PRIORITY_COLOR, Types } from "@/utils/constants";
 import { addListItem, deleteActivity, getter, updateListItem, updateStatusItem, updateTitleGroup } from "@/utils/clients";
+import { sortItem } from "@/utils/helpers";
 
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
@@ -45,6 +46,7 @@ export default () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
+  const [sort, setSort] = useState<string | undefined>('terbaru')
 
   const { data, error, mutate } = useSWR(`/activity-groups/${id}`, getter)
 
@@ -100,12 +102,14 @@ export default () => {
       onBack={() => navigate('/')}
       onAdd={() => handleOpen({ type: Types.ADD })}
       onEditTitle={handleEditTitle}
+      onSort={setSort}
+      sort={sort}
     >
       {data?.todo_items?.length === 0 && (
         <EmptyState src={EmptyStateTodo} onAdd={() => handleOpen({ type: Types.ADD })} />
       )}
 
-      {data?.todo_items?.map((res: Todo) => (
+      {sortItem(data?.todo_items || [], sort)?.map((res: Todo) => (
         <ListItem
           key={res.id}
           title={res.title}

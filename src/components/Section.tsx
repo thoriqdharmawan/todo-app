@@ -4,19 +4,25 @@ import { Button, Box, IconButton, Typography, Input } from '@mui/material';
 import AddIcon from '@/assets/add-icon.svg'
 import BackIcon from '@/assets/back-icon.svg'
 import EditIcon from '@/assets/edit-icon.svg'
+import SortIcon from '@/assets/sort-icon.svg'
+
+import SortMenu from './SortMenu';
 
 interface Props {
   title?: string;
+  sort?: string;
   onAdd?: () => void;
   onBack?: () => void;
+  onSort?: (value: string) => void;
   onEditTitle?: (value: string | undefined) => void;
   children: React.ReactNode
 }
 
 export default (props: Props) => {
-  const { title, onAdd, onBack, onEditTitle, children } = props
+  const { title, sort, onAdd, onBack, onEditTitle, onSort, children } = props
   const [edit, setEdit] = useState<boolean>(false)
   const [value, setValue] = useState<string | undefined>('')
+  const [anchorSort, setAnchorSort] = useState<null | HTMLElement>(null)
 
   const handleOpenEdit = () => {
     setValue(title)
@@ -36,6 +42,10 @@ export default (props: Props) => {
     if (!!onBack) {
       onBack()
     }
+  }
+
+  const handleOpenSort = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchorSort(e.currentTarget);
   }
 
   return (
@@ -70,17 +80,38 @@ export default (props: Props) => {
           )}
         </Box>
 
-        {!!onAdd && (
-          <Button
-            variant="contained"
-            disableElevation
-            startIcon={<img src={AddIcon} alt="add" />}
-            sx={{ borderRadius: "45px", fontWeight: 600 }}
-            onClick={onAdd}
-          >
-            Tambah
-          </Button>
-        )}
+        <Box gap="18px" display="flex">
+          {!!onSort && (
+            <SortMenu
+              id="sort"
+              sort={sort}
+              open={Boolean(anchorSort)}
+              onClose={() => setAnchorSort(null)}
+              anchorEl={anchorSort}
+              onSort={onSort}
+            >
+              <IconButton
+                id="sort"
+                sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
+                onClick={handleOpenSort}
+              >
+                <img src={SortIcon} alt="sort" />
+              </IconButton>
+            </SortMenu>
+          )}
+
+          {!!onAdd && (
+            <Button
+              variant="contained"
+              disableElevation
+              startIcon={<img src={AddIcon} alt="add" />}
+              sx={{ borderRadius: "45px", fontWeight: 600 }}
+              onClick={onAdd}
+            >
+              Tambah
+            </Button>
+          )}
+        </Box>
       </Box>
 
       {children}
