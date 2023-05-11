@@ -54,7 +54,7 @@ export default (props: Props) => {
 
   return (
     <section>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "49px" }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "49px" }}>
         <Box display="flex" alignItems="center" gap="19px">
           {!!onBack && (
             <IconButton data-cy={cyback} onClick={handleBack}>
@@ -93,14 +93,25 @@ export default (props: Props) => {
 
         <div style={{ display: 'flex' }}>
           {!!onSort && (
-            <IconButton
+            <Box
               id="todo-sort-button"
               data-cy="todo-sort-button"
               onClick={handleOpenSort}
-              sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5', position: 'relative', zIndex: 1 }}
+              sx={{ 
+                width: "54px", 
+                height: '54px', 
+                border: '1px solid #E5E5E5', 
+                display: 'flex',
+                justifyContent: 'center',
+                borderRadius: '50%',
+                alignItems: 'center',
+                cursor: 'pointer',
+                position: 'relative',
+                zIndex: 1 ,
+              }}
             >
               <img src={SortIcon} alt="sort" />
-            </IconButton>
+            </Box>
           )}
 
           <span data-cy={cybutton} onClick={onAdd}>
@@ -114,7 +125,7 @@ export default (props: Props) => {
             </Button>
           </span>
         </div>
-      </div>
+      </Box>
 
       {children}
 
