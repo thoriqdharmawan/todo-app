@@ -8,7 +8,11 @@ import Typography from '@mui/material/Typography';
 export default () => {
   return (
     <Box sx={{ backgroundColor: '#E5E5E51F', minHeight: '100vh' }}>
-      <AppBar data-cy="header-background" position="static" sx={(theme) => ({ boxShadow: theme.bs[1], marginBottom: '43px' })}>
+      <AppBar
+        data-cy="header-background"
+        position="static"
+        sx={(theme) => ({ boxShadow: theme.bs[1], marginBottom: '43px' })}
+      >
         <Container maxWidth="md" disableGutters>
           <Typography
             variant="h1"
