@@ -62,3 +62,13 @@ export const updateListItem = async (url: string, { arg }: { arg: ArgUpdateListI
     })
   })
 }
+
+export const updateTitleGroup = async (url: string, { arg }: { arg: { id: string | number | undefined; title: string } }) => {
+  const { id, title } = arg
+
+  await fetch(`${API_URL}${url}/${id}`, {
+    method: 'PATCH',
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title })
+  })
+}

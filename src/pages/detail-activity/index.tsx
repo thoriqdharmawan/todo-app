@@ -1,7 +1,7 @@
 import { useState } from "react"
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PRIORITY_COLOR, Types } from "@/utils/constants";
-import { addListItem, deleteActivity, getter, updateListItem } from "@/utils/clients";
+import { addListItem, deleteActivity, getter, updateListItem, updateTitleGroup } from "@/utils/clients";
 
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
@@ -43,12 +43,14 @@ const DEFAULT_STATE_DIALOG: DialogState = {
 
 export default () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [dialog, setDialog] = useState<DialogState>(DEFAULT_STATE_DIALOG)
 
   const { data, error, mutate } = useSWR(`/activity-groups/${id}`, getter)
 
   const { trigger: addItem } = useSWRMutation('/todo-items', addListItem)
   const { trigger: updateItem } = useSWRMutation('/todo-items', updateListItem)
+  const { trigger: updateTitle } = useSWRMutation('/activity-groups', updateTitleGroup)
   const { trigger: deleteListItem } = useSWRMutation('/todo-items', deleteActivity)
 
   const handleClose = () => {
@@ -82,8 +84,17 @@ export default () => {
     await mutate()
   }
 
+  const handleEditTitle = (title: string = '') => {
+    updateTitle({ title, id })
+  }
+
   return (
-    <Section title={data?.title} onAdd={() => handleOpen({ type: Types.ADD })}>
+    <Section
+      title={data?.title}
+      onBack={() => navigate('/')}
+      onAdd={() => handleOpen({ type: Types.ADD })}
+      onEditTitle={handleEditTitle}
+    >
       {data?.todo_items?.length === 0 && (
         <EmptyState src={EmptyStateTodo} />
       )}
