@@ -30,7 +30,6 @@ interface Props extends Cypres, Partial<ValuesState> {
   groupId: string | number | undefined;
   cytitle?: string;
   cyclose?: string;
-  cysave?: string;
 }
 
 interface Wrap {
@@ -135,7 +134,7 @@ const Content = (props: Content) => {
 
 export default (props: Props) => {
   const { open, type, onClose, onSubmit, priority, name } = props
-  const { cylabelname, cylabelpriority, cyformname, cyformpriority, cytitle, cyclose, cysave, cyitemdropwdown } = props
+  const { cylabelname, cylabelpriority, cyformname, cyformpriority, cytitle, cyclose, cyitemdropwdown } = props
   const [values, setValues] = useState<ValuesState>({
     name: '',
     priority: ''
@@ -198,7 +197,7 @@ export default (props: Props) => {
             onClick={handleSubmit}
             sx={{ display: 'block', marginLeft: 'auto' }}
             disabled={!values.name || !values.priority}
-            data-cy={cysave}
+            data-cy="'modal-add-save-button'"
           >
             Simpan
           </Button>

@@ -157,7 +157,6 @@ export default () => {
         cyformname={'modal-add-name-input'}
         cyformpriority={'modal-add-priority-dropdown'}
         cyitemdropwdown={'modal-add-priority-item'}
-        cysave={'modal-add-save-button'}
       />
 
       <DeleteInformation

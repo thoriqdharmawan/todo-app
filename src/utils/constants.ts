@@ -11,7 +11,7 @@ type Base = {
 export const PRIORITY_LABEL: Base = {
   'very-high': 'Very High',
   'high': 'High',
-  'medium': 'Medium',
+  'normal': 'Medium',
   'low': 'Low',
   'very-low': 'Very Low',
 }
@@ -19,7 +19,7 @@ export const PRIORITY_LABEL: Base = {
 export const PRIORITY_COLOR: Base = {
   'very-high': '#ED4C5C',
   'high': '#F8A541',
-  'medium': '#00A790',
+  'normal': '#00A790',
   'low': '#428BC1',
   'very-low': '#8942C1',
 }
@@ -36,9 +36,9 @@ export const PRIORITY = [
     value: 'high',
   },
   {
-    label: PRIORITY_LABEL['medium'],
-    color: PRIORITY_COLOR['medium'],
-    value: 'medium',
+    label: PRIORITY_LABEL['normal'],
+    color: PRIORITY_COLOR['normal'],
+    value: 'normal',
   },
   {
     label: PRIORITY_LABEL['low'],
