@@ -4,13 +4,20 @@ export default ({ src, onAdd, cyempty }: { src: string; onAdd: () => void, cyemp
   return (
     <Box
       onClick={onAdd}
-      sx={{
-        maxWidth: '767px',
+      sx={(theme) => ({
+        width: '767px',
         margin: 'auto',
         display: 'flex',
         justifyContent: 'center',
         cursor: 'pointer',
-      }}
+        [theme.breakpoints.down("md")]: {
+          width: "100%",
+          "& img": {
+            width: "80%",
+            maxWidth: '767px',
+          }
+        },
+      })}
       data-cy={cyempty}
     >
       <img src={src} alt="empty" />

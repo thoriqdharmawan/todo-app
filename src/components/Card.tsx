@@ -32,7 +32,10 @@ export default (props: Props) => {
         boxShadow: theme.bs[2],
         padding: '22px 26px',
         borderRadius: '12px',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        [theme.breakpoints.down("md")]: {
+          maxWidth: '100%',
+        },
       })}
       data-cy="activity-item"
     >

@@ -24,6 +24,9 @@ export default (props: Props) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          [theme.breakpoints.down("md")]: {
+            width: '100%',
+          },
         })}
         data-cy={cymodal}
       >

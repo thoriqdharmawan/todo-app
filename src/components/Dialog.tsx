@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dialog, Slide } from '@mui/material';
+import { Dialog, Slide, useMediaQuery, useTheme } from '@mui/material';
 import { TransitionProps } from '@mui/material/transitions';
 
 interface Props {
@@ -21,6 +21,9 @@ const Transition = React.forwardRef(function Transition(
 
 export default (props: Props) => {
   const { open, children, onClose } = props;
+  const theme = useTheme();
+  
+  const onlyMediumScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Dialog
@@ -30,6 +33,7 @@ export default (props: Props) => {
       TransitionComponent={Transition}
       maxWidth="lg"
       scroll='body'
+      fullWidth={onlyMediumScreen}
     >
       {children}
     </Dialog>

@@ -54,7 +54,18 @@ export default (props: Props) => {
 
   return (
     <section>
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "49px" }}>
+      <Box
+        sx={(theme) => ({
+          p: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: "49px",
+          [theme.breakpoints.down("md")]: {
+            p: "0px 38px",
+          },
+        })}
+      >
         <Box display="flex" alignItems="center" gap="19px">
           {!!onBack && (
             <IconButton data-cy={cyback} onClick={handleBack}>
@@ -68,14 +79,25 @@ export default (props: Props) => {
               value={value}
               onChange={(e) => setValue(e.target.value)}
               onBlur={handleEditTitle}
-              sx={{ fontWeight: '700', fontSize: '36px' }}
+              sx={(theme) => ({
+                fontWeight: '700',
+                fontSize: '36px',
+                [theme.breakpoints.down("md")]: {
+                  fontSize: '18px',
+                },
+              })}
             />
           ) : (
             <Typography
               variant="h2"
               component="h2"
-              fontWeight={700}
-              fontSize={36}
+              sx={(theme) => ({
+                fontWeight: '700',
+                fontSize: '36px',
+                [theme.breakpoints.down("md")]: {
+                  fontSize: '18px',
+                },
+              })}
               data-cy={cytitle}
               onClick={!!onEditTitle ? handleOpenEdit : undefined}
             >
@@ -106,8 +128,6 @@ export default (props: Props) => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                position: 'relative',
-                zIndex: 999,
               }}
             >
               <img src={SortIcon} alt="sort" />
@@ -119,7 +139,10 @@ export default (props: Props) => {
               variant="contained"
               disableElevation
               startIcon={<img src={AddIcon} alt="add" />}
-              sx={{ borderRadius: "45px", fontWeight: 600 }}
+              sx={{ 
+                borderRadius: "45px", 
+                fontWeight: 600 
+              }}
             >
               Tambah
             </Button>
@@ -127,7 +150,16 @@ export default (props: Props) => {
         </Box>
       </Box>
 
-      {children}
+      <Box
+        sx={(theme) => ({
+          p: 0,
+          [theme.breakpoints.down("md")]: {
+            p: "0px 38px",
+          },
+        })}
+      >
+        {children}
+      </Box>
 
       {!!onSort && (
         <SortMenu
