@@ -93,14 +93,16 @@ export default (props: Props) => {
 
         <Box gap="18px" display="flex">
           {!!onSort && (
-            <IconButton
-              id="sort"
-              sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
-              onClick={handleOpenSort}
-              data-cy="todo-sort-button"
-            >
-              <img src={SortIcon} alt="sort" />
-            </IconButton>
+            <span onClick={handleOpenSort} data-cy="todo-sort-button">
+              <IconButton
+                id="sort"
+                sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
+
+              >
+                <img src={SortIcon} alt="sort" />
+              </IconButton>
+            </span>
+
           )}
           {!!onSort && (
             <SortMenu
