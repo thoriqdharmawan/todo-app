@@ -91,28 +91,16 @@ export default (props: Props) => {
           )}
         </Box>
 
-        <Box gap="18px" display="flex">
+        <div>
           {!!onSort && (
             <span onClick={handleOpenSort} data-cy="todo-sort-button">
               <IconButton
                 id="sort"
                 sx={{ width: "54px", height: '54px', border: '1px solid #E5E5E5' }}
-
               >
                 <img src={SortIcon} alt="sort" />
               </IconButton>
             </span>
-
-          )}
-          {!!onSort && (
-            <SortMenu
-              id="sort"
-              sort={sort}
-              open={Boolean(anchorSort)}
-              onClose={() => setAnchorSort(null)}
-              anchorEl={anchorSort}
-              onSort={onSort}
-            />
           )}
 
           <span data-cy={cybutton} onClick={onAdd}>
@@ -120,16 +108,26 @@ export default (props: Props) => {
               variant="contained"
               disableElevation
               startIcon={<img src={AddIcon} alt="add" />}
-              sx={{ borderRadius: "45px", fontWeight: 600 }}
+              sx={{ borderRadius: "45px", fontWeight: 600, marginLeft: '18px' }}
             >
               Tambah
             </Button>
           </span>
-        </Box>
+        </div>
       </Box>
 
       {children}
 
+      {!!onSort && (
+        <SortMenu
+          id="sort"
+          sort={sort}
+          open={Boolean(anchorSort)}
+          onClose={() => setAnchorSort(null)}
+          anchorEl={anchorSort}
+          onSort={onSort}
+        />
+      )}
     </section>
   )
 }
